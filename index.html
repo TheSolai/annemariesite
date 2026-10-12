@@ -1,0 +1,2445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anne Marie Lee — Indie AI Systems Engineer</title>
+<meta name="description" content="Anne Marie Lee builds local-first AI tools, multi-agent swarms, and OpenClaw skills from Belfast. Independent, open source, no middlemen.">
+<meta name="theme-color" content="#ECE9DE">
+<meta property="og:title" content="Anne Marie Lee — Indie AI Systems Engineer">
+<meta property="og:description" content="Local-first AI tools, multi-agent swarms, OpenClaw skills. Independent, open source, no middlemen.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Tokens ────────────────────────────────────────────── */
+:root{
+  --paper:#ECE9DE;
+  --paper-strong:#E4E0D3;
+  --paper-soft:#F2F0E6;
+  --ink:#0C0D10;
+  --ink-soft:#1A1B1F;
+  --muted:#5C5D5A;
+  --line:rgba(12,13,16,.18);
+  --line-soft:rgba(12,13,16,.10);
+  --saffron:#E8A33A;
+  --saffron-soft:#F1BD68;
+  --cobalt:#2B4FE3;
+  --cobalt-deep:#1A33A8;
+  --terra:#D8866C;
+  --sage:#7A8A6F;
+  --dark:#0A0B0E;
+  --dark-soft:#14151A;
+  --dark-line:rgba(240,238,229,.13);
+  --dark-muted:#8B8D85;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --shadow-card:inset 0 1px rgba(255,255,255,.82), 0 9px 24px rgba(12,13,16,.04);
+  --shadow-card-hover:inset 0 1px rgba(255,255,255,.90), 0 13px 30px rgba(12,13,16,.07);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  font-feature-settings:"ss01","cv11";
+  font-synthesis:none;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{color:inherit;font:inherit;background:0 0;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px;border-radius:3px}
+::selection{background:var(--saffron);color:var(--ink)}
+
+/* ─── Top nav ───────────────────────────────────────────── */
+.site-nav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;
+  padding:12px 2.3vw;
+  min-height:72px;
+  background:rgba(236,233,222,.86);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.name-pill{
+  display:inline-flex;align-items:center;gap:9px;
+  min-height:40px;padding:0 13px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-size:13px;font-weight:500;
+  letter-spacing:-.01em;
+  transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.name-pill .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--saffron);
+  box-shadow:0 0 0 3px rgba(232,163,58,.18);
+  flex:none;
+}
+.pill-divider{width:1px;height:14px;background:var(--line);flex:none}
+.name-pill .tag{color:var(--muted);font-weight:400}
+.name-pill:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.name-pill:hover .pill-divider{background:rgba(236,233,222,.25)}
+.name-pill:hover .tag{color:rgba(236,233,222,.7)}
+
+.nav-links{display:flex;align-items:center;gap:7px}
+.nav-links a{
+  display:inline-flex;align-items:center;min-height:40px;padding:0 15px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-size:13px;font-weight:500;letter-spacing:-.01em;
+  transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.nav-links a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ─── Page shell ────────────────────────────────────────── */
+.page-shell{
+  width:min(100%,1600px);
+  margin:0 auto;
+  padding:0 2.3vw;
+}
+.intro-shell{padding-top:19px;padding-bottom:34px}
+.section-kicker{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:0 1px 12px;
+  color:var(--muted);
+  letter-spacing:.08em;text-transform:uppercase;
+  font-size:11px;font-weight:500;
+}
+.card-label,.project-meta,.micro-copy,.project-index,.visual-caption,.footer-title,.skill-list span,.process-list li span,.editorial-foot,.editorial-head{
+  letter-spacing:.08em;text-transform:uppercase;
+  font-size:11px;font-weight:500;
+}
+
+/* ─── Hero grid ─────────────────────────────────────────── */
+.hero-grid{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  grid-template-rows:repeat(6,98px);
+  gap:16px;
+}
+
+/* shared card */
+.hero-card{
+  position:relative;overflow:hidden;
+  background:#F7F7F2;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:var(--shadow-card);
+  display:flex;flex-direction:column;
+  transition:border-color .22s ease,background-color .22s ease,box-shadow .22s ease,transform .22s var(--ease-out);
+  animation:hero-enter .68s var(--ease-out) both;
+}
+.hero-card:nth-child(1){animation-delay:0ms}
+.hero-card:nth-child(2){animation-delay:45ms}
+.hero-card:nth-child(3){animation-delay:90ms}
+.hero-card:nth-child(4){animation-delay:135ms}
+.hero-card:nth-child(5){animation-delay:180ms}
+.hero-card:nth-child(6){animation-delay:225ms}
+.hero-card:nth-child(7){animation-delay:270ms}
+.hero-card:hover{border-color:rgba(12,13,16,.45);box-shadow:var(--shadow-card-hover)}
+
+.card-label{
+  display:flex;justify-content:space-between;align-items:center;
+  min-height:37px;
+  padding:0 13px;
+  color:var(--muted);
+  background:rgba(255,255,255,.26);
+  border-bottom:1px solid var(--line);
+}
+
+/* 1. Identity card */
+.identity-card{
+  --scene-h:clamp(188px,13.8vw,208px);
+  grid-area:1/1/span 4/span 4;
+  container-type:inline-size;
+  background:linear-gradient(165deg,#EFD9CC 0%,#D2C9E8 48%,#9FB0E6 100%);
+}
+.identity-card::before{
+  content:"";position:absolute;inset:37px 0 auto 0;height:calc(26px + var(--scene-h));
+  background-image:radial-gradient(circle at 1px 1px,rgba(12,13,16,.13) 1px,transparent 0);
+  background-size:13px 13px;
+  border-bottom:1px solid var(--line);
+  pointer-events:none;
+}
+.identity-body{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;flex:1;gap:22px;
+  padding:17px 18px 15px;
+}
+.identity-scene{
+  height:var(--scene-h);
+  background:#fff;
+  border:1px solid rgba(12,13,16,.25);
+  border-radius:9px;
+  display:flex;justify-content:center;align-items:center;
+  position:relative;overflow:hidden;
+  box-shadow:0 8px 18px rgba(12,13,16,.12);
+  animation:monogram-enter .72s .17s var(--ease-out) both;
+}
+.identity-scene svg{width:100%;height:100%;object-fit:contain;transition:transform .42s var(--ease-out)}
+.identity-card:hover .identity-scene svg{transform:scale(1.025)}
+.identity-stamp{
+  position:absolute;bottom:7px;right:7px;
+  min-width:49px;height:25px;padding:0 7px;
+  display:grid;place-items:center;
+  background:var(--saffron);
+  border:1px solid rgba(12,13,16,.45);
+  border-radius:999px;
+  font-size:8px;font-weight:600;letter-spacing:.05em;
+}
+.identity-copy{display:grid;gap:8px;min-width:0}
+.identity-copy .micro-copy{margin:0}
+.identity-card h1{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;
+  font-size:clamp(20px,6.3cqi,30px);
+  line-height:.98;
+  letter-spacing:-.045em;
+  margin:0;
+  white-space:nowrap;
+}
+.identity-card h1 span{display:block}
+.identity-footnote{
+  position:relative;z-index:1;
+  margin:0;
+  padding:12px 18px 18px;
+  border-top:1px solid var(--line);
+  background:#F7F7F2;
+  font-size:14px;line-height:1.4;
+}
+.identity-footnote p{margin:0}
+.identity-footnote .sol-credit{
+  margin-top:10px;padding-top:10px;
+  border-top:1px dashed var(--line-soft);
+  font-size:11px;line-height:1.4;color:var(--muted);letter-spacing:-.01em;
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+}
+.identity-footnote .sol-credit a{
+  color:var(--ink);font-weight:600;
+  border-bottom:1px solid var(--saffron);
+  padding-bottom:1px;
+  transition:color .18s ease,border-color .18s ease;
+}
+.identity-footnote .sol-credit a:hover{color:var(--cobalt);border-color:var(--cobalt)}
+.identity-footnote .sol-credit::before{
+  content:"";width:7px;height:7px;border-radius:50%;
+  background:var(--saffron);
+  box-shadow:0 0 0 3px rgba(232,163,58,.18);
+  flex:none;
+}
+
+/* 2. Intro card */
+.intro-card{background:#FBFBF8;grid-area:1/5/span 2/span 4}
+.intro-card-content{
+  flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px 14px;padding:11px 14px 12px;
+}
+.intro-card-content>p{
+  grid-column:1/-1;
+  max-width:560px;margin:0;
+  font-size:clamp(13px,1.18vw,16px);line-height:1.32;
+  letter-spacing:-.03em;
+}
+.intro-meta{
+  grid-column:1/-1;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:end;gap:12px;min-width:0;margin:0;
+}
+.intro-meta div{min-width:0}
+.intro-meta dt,.intro-meta dd{margin:0;font-size:9px;line-height:1.25}
+.intro-meta dt{color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.intro-meta dd{margin-top:4px;font-size:10px;letter-spacing:-.01em}
+.button{
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  min-height:40px;padding:0 15px;
+  border:1px solid var(--ink);
+  border-radius:9px;
+  font-size:13px;font-weight:500;letter-spacing:-.01em;
+  white-space:nowrap;
+  transition:transform .22s var(--ease-out),background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.primary-button{background:var(--ink);color:var(--paper);align-self:end}
+.button:hover{transform:translateY(-2px)}
+.primary-button:hover{background:var(--cobalt);border-color:var(--cobalt)}
+.arrow{display:inline-block;font-size:15px;line-height:.8;transition:transform .22s var(--ease-out)}
+.case-link .arrow,.footer-card a .arrow{margin-left:auto}
+a:hover .arrow{transform:translate(2px,-2px)}
+
+/* 3. Signal card */
+.signal-card{
+  background:var(--cobalt);
+  border-color:var(--cobalt-deep);
+  color:#F5F5F2;
+  grid-area:1/9/span 2/span 2;
+}
+.signal-card .card-label{color:#EEF0FF;border-color:rgba(255,255,255,.36);background:rgba(255,255,255,.05)}
+.field-note-body{
+  flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:13px 14px 11px;
+}
+.field-note-body strong{font-family:'Bricolage Grotesque',serif;font-weight:500;font-size:28px;line-height:1;letter-spacing:-.07em}
+.field-note-body p{margin:0;padding:0;font-size:13px;line-height:1.3;letter-spacing:-.03em}
+.text-action{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 14px 12px;
+  border-top:1px solid rgba(255,255,255,.36);
+  font-size:12px;
+}
+.inverted{color:#F4F4EF}
+
+/* 4. Resume card */
+.resume-card{
+  background:var(--ink);border-color:var(--ink);color:var(--paper);
+  grid-area:1/11/span 2/span 2;
+}
+.resume-card .card-label{color:rgba(235,234,228,.69);border-color:rgba(235,234,228,.27);background:rgba(255,255,255,.04)}
+.resume-word{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;
+  font-size:clamp(28px,2.8vw,42px);
+  line-height:.9;
+  letter-spacing:-.09em;
+  padding:9px 12px 1px;
+}
+.resume-meta{
+  display:grid;gap:3px;margin:0 12px 7px;
+}
+.resume-meta div{
+  display:flex;justify-content:space-between;gap:8px;
+  border-top:1px solid rgba(235,234,228,.22);
+  padding-top:4px;
+}
+.resume-meta dt,.resume-meta dd{margin:0;font-size:8px;line-height:1.2}
+.resume-meta dt{color:rgba(235,234,228,.55);text-transform:uppercase;letter-spacing:.05em}
+.resume-meta dd{text-align:right}
+.quiet-button{
+  color:rgba(235,234,228,.80);
+  border-color:rgba(235,234,228,.40);
+  min-height:34px;margin:auto 10px 10px;
+  font-size:10px;
+}
+.quiet-button:hover{background:rgba(255,255,255,.08);color:var(--paper);border-color:rgba(235,234,228,.7)}
+
+/* 5. Skills card */
+.skills-card{background:#F0EFEA;grid-area:5/1/span 2/span 4}
+.skill-list{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  padding:7px 13px 10px;
+}
+.skill-list div{
+  display:flex;flex-direction:column;gap:4px;
+  border-bottom:1px solid var(--line);
+  min-width:0;padding:7px 8px 7px 0;
+}
+.skill-list div:nth-child(2n){border-left:1px solid var(--line);padding-left:10px}
+.skill-list .no,.skill-list strong{display:block}
+.skill-list .no{color:var(--muted);font-size:9px;letter-spacing:.04em;text-transform:uppercase}
+.skill-list strong{margin:0;font-size:11px;font-weight:500;line-height:1.25;letter-spacing:-.015em}
+
+/* 6. Hero project card */
+.hero-project-card{background:#FAFAF7;grid-area:3/5/span 4/span 6}
+.hero-product-preview{
+  position:relative;
+  background:#DDE5FF;
+  border:1px solid rgba(24,32,43,.28);
+  border-radius:9px;
+  flex:1;margin:11px;
+  display:flex;align-items:center;justify-content:flex-start;
+  overflow:hidden;
+}
+.hero-product-preview svg{width:62%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .42s var(--ease-out)}
+.hero-project-card:hover .hero-product-preview svg{transform:translateY(-2px) scale(1.02)}
+.hero-preview-note{
+  position:absolute;top:0;bottom:0;right:0;width:39%;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:rgba(250,250,247,.78);
+  border-left:1px solid rgba(24,32,43,.24);
+  padding:14px;
+  gap:6px;
+}
+.hero-preview-note .tag{color:var(--muted);font-size:9px;letter-spacing:.07em;text-transform:uppercase}
+.hero-preview-note strong{
+  display:block;
+  font-family:'Bricolage Grotesque',serif;font-weight:500;
+  font-size:clamp(13px,1.25vw,18px);line-height:1.18;letter-spacing:-.04em;
+  margin:0 0 auto;
+}
+.hero-preview-note small{color:var(--muted);font-size:9px;line-height:1.3}
+.hero-project-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:15px;padding:0 11px 11px;
+}
+.hero-project-bottom h2{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;font-size:28px;line-height:.95;letter-spacing:-.07em;
+  margin:4px 0 0;
+}
+.hero-project-bottom .micro-copy{margin:0}
+.hero-case-link{
+  border-bottom:1px solid var(--ink);
+  padding-bottom:3px;
+  font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  transition:color .18s ease,border-color .18s ease;
+}
+.hero-case-link:hover{color:var(--cobalt);border-color:var(--cobalt)}
+
+/* 7. Explore card */
+.explore-card{grid-area:3/11/span 4/span 2;background:#FBFBF8}
+.explore-link{
+  display:flex;align-items:center;justify-content:space-between;
+  flex:1;
+  border-bottom:1px solid var(--line);
+  padding:0 12px;
+  font-size:14px;letter-spacing:-.03em;
+  transition:background-color .18s ease,color .18s ease;
+}
+.explore-link:last-child{border-bottom:0}
+.explore-link:hover{background:var(--saffron)}
+.explore-link small{color:var(--muted);font-size:10px;letter-spacing:.06em}
+
+/* ─── Selected work section ─────────────────────────────── */
+.projects-section{padding-bottom:76px}
+.section-heading{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:34px;padding:0 0 15px;
+}
+.section-title{
+  display:inline-flex;align-items:center;min-height:35px;padding:0 12px;
+  border:1px solid var(--line);border-radius:999px;
+  font-family:'Bricolage Grotesque',serif;
+  font-size:14px;font-weight:500;letter-spacing:-.01em;
+}
+.section-heading p{
+  max-width:none;margin:0;padding:0;
+  color:var(--muted);text-align:right;white-space:nowrap;
+  font-size:14px;line-height:1.4;
+}
+.project-row{
+  display:grid;grid-template-columns:minmax(290px,.98fr) minmax(0,2.02fr);
+  align-items:stretch;gap:16px;margin-top:16px;
+}
+.project-info{
+  display:flex;flex-direction:column;
+  height:500px;min-height:500px;
+  padding:18px;
+  background:#F8F8F5;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:inset 0 1px rgba(255,255,255,.88), 0 10px 25px rgba(12,13,16,.04);
+  transition:border-color .22s ease,box-shadow .22s ease;
+}
+.project-index{color:var(--muted);margin:0 0 17px;letter-spacing:.08em;text-transform:uppercase;font-size:11px;font-weight:500}
+.project-info h2{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;font-size:clamp(36px,3.7vw,56px);line-height:.94;letter-spacing:-.055em;
+  margin:0;
+}
+.project-type{max-width:340px;margin:11px 0 0;font-size:15px;line-height:1.42;letter-spacing:-.03em}
+.project-facts{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;
+  border-top:1px solid var(--line);
+  margin:27px 0 18px;
+}
+.project-facts div{
+  display:flex;flex-direction:column;gap:8px;
+  border-bottom:1px solid var(--line);
+  min-height:82px;padding:12px 11px 11px 0;
+}
+.project-facts div:nth-child(2n){border-left:1px solid var(--line);padding-left:11px;padding-right:0}
+.project-facts dt,.project-facts dd{margin:0;font-size:11px;line-height:1.4}
+.project-facts dt{color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-size:9px}
+.project-facts dd{letter-spacing:-.015em}
+.project-footer{
+  display:flex;flex-direction:column;gap:10px;margin-top:auto;
+}
+.project-meta{
+  display:flex;justify-content:space-between;gap:12px;
+  border-top:1px solid var(--line);
+  color:var(--muted);padding-top:12px;letter-spacing:.05em;text-transform:uppercase;
+  font-size:10px;
+}
+.project-meta span:last-child{text-align:right}
+.case-link{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  width:100%;min-height:39px;padding:4px 5px 4px 11px;
+  border:1px solid var(--line);border-radius:8px;
+  background:0 0;text-align:left;
+  font-size:12px;letter-spacing:-.005em;
+  transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.case-link:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* project visual */
+.project-visual{
+  height:500px;min-height:500px;
+  position:relative;overflow:hidden;
+  background:#F8F8F5;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:0 12px 28px rgba(12,13,16,.07);
+  transition:box-shadow .22s ease;
+  display:flex;flex-direction:column;
+}
+.project-row:hover .project-info{border-color:rgba(12,13,16,.42);box-shadow:inset 0 1px rgba(255,255,255,.90), 0 14px 30px rgba(12,13,16,.07)}
+.project-row:hover .project-visual{box-shadow:0 17px 36px rgba(12,13,16,.11)}
+
+.editorial-visual{display:flex;flex-direction:column}
+.editorial-head,.editorial-foot{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:18px;padding:0 16px;
+  font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-weight:500;
+}
+.editorial-head{border-bottom:1px solid;min-height:42px}
+.editorial-foot{border-top:1px solid;min-height:48px}
+.editorial-stage{
+  flex:1;display:grid;grid-template-columns:minmax(0,1.38fr) minmax(210px,.62fr);
+  gap:28px;min-height:0;padding:25px;
+}
+.editorial-image{
+  background:rgba(255,255,255,.78);
+  border-radius:10px;
+  display:flex;justify-content:center;align-items:center;
+  min-height:0;overflow:hidden;
+  box-shadow:0 12px 24px rgba(12,13,16,.10);
+}
+.editorial-image svg{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .44s var(--ease-out)}
+.project-row:hover .editorial-image svg{transform:translateY(-3px) scale(1.018)}
+.editorial-feature{
+  display:flex;flex-direction:column;justify-content:flex-end;padding:4px 2px;gap:8px;
+}
+.editorial-feature>span{color:var(--muted);font-size:10px;letter-spacing:.07em;text-transform:uppercase}
+.editorial-feature strong{
+  font-family:'Bricolage Grotesque',serif;font-weight:500;
+  font-size:clamp(25px,2.4vw,38px);line-height:.98;letter-spacing:-.07em;
+  margin:9px 0 0;display:block;
+}
+.editorial-feature p{margin:9px 0 0;font-size:13px;line-height:1.42}
+.editorial-feature small{color:var(--muted);margin-top:auto;font-size:11px;line-height:1.45}
+
+/* per-project themes */
+.solis-visual{color:var(--ink);background:#DFE6FF;border-color:rgba(32,59,174,.55)}
+.solis-visual .editorial-image{background:#F8F8F5}
+.solis-visual .editorial-image svg{object-position:center bottom}
+.paper-visual{color:var(--ink);background:#ECDCCC;border-color:rgba(117,91,70,.48)}
+.paper-visual .editorial-image{background:#F8F4ED}
+.paper-visual .editorial-feature p{color:#6F5D50}
+.reading-stage{grid-template-columns:minmax(210px,.72fr) minmax(0,1.28fr)}
+.reading-stage .editorial-image{order:0}
+.reading-stage .editorial-feature{justify-content:center}
+.reading-stage .editorial-feature strong{font-size:clamp(24px,2.2vw,35px)}
+
+.transfer-visual{color:#EDF0ED;background:#203D3E;border-color:#152E2F}
+.transfer-visual .editorial-image{background:#F6F6F2;box-shadow:0 14px 28px rgba(0,0,0,.19)}
+.transfer-visual .editorial-feature>span,.transfer-visual .editorial-feature p{color:#BFCFCA}
+.transfer-visual .editorial-feature strong{font-size:clamp(24px,2.2vw,35px)}
+
+/* project B (palimpsest / mirror layout) */
+.project-palimpsest{grid-template-columns:minmax(0,2.02fr) minmax(290px,.98fr)}
+.project-palimpsest .project-visual{order:1}
+.project-palimpsest .project-info{order:2}
+
+/* ─── More on GitHub: app grid ────────────────────────── */
+.app-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;margin-top:18px;
+}
+.app-card{
+  display:flex;flex-direction:column;
+  padding:18px;
+  background:#F8F8F5;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:inset 0 1px rgba(255,255,255,.88), 0 10px 24px rgba(12,13,16,.04);
+  min-height:236px;
+  transition:border-color .22s ease,box-shadow .22s ease,transform .22s var(--ease-out);
+}
+.app-card:hover{
+  border-color:rgba(12,13,16,.42);
+  box-shadow:inset 0 1px rgba(255,255,255,.92), 0 14px 30px rgba(12,13,16,.07);
+  transform:translateY(-2px);
+}
+.app-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px;gap:12px}
+.app-icon{
+  display:grid;place-items:center;flex:none;
+  width:38px;height:38px;
+  background:linear-gradient(135deg,var(--c1,#E8A33A),var(--c2,#C28726));
+  border:1px solid var(--ink);
+  border-radius:9px;
+  color:#0C0D10;
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;font-size:15px;line-height:1;letter-spacing:-.02em;
+  box-shadow:0 3px 6px rgba(12,13,16,.10);
+  transition:transform .22s var(--ease-out);
+}
+.app-card:hover .app-icon{transform:rotate(-3deg) scale(1.04)}
+.app-tag{color:var(--muted);font-size:9px;letter-spacing:.07em;text-transform:uppercase;font-weight:500;text-align:right}
+.app-name{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;font-size:24px;line-height:1.05;letter-spacing:-.045em;
+  margin:0 0 9px;
+}
+.app-desc{color:var(--muted);font-size:13px;line-height:1.4;margin:0;flex:1}
+.app-link{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  margin-top:18px;padding-top:13px;
+  border-top:1px solid var(--line);
+  font-size:12px;letter-spacing:-.005em;
+  transition:color .18s ease;
+}
+.app-card:hover .app-link{color:var(--cobalt)}
+
+/* ─── Blog section: editorial post grid ──────────────── */
+.blog-section{padding-bottom:76px}
+.blog-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;margin-top:18px;
+}
+.blog-card{
+  display:flex;flex-direction:column;
+  padding:20px 20px 18px;
+  background:#FBFBF8;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:inset 0 1px rgba(255,255,255,.90), 0 10px 24px rgba(12,13,16,.04);
+  min-height:226px;
+  transition:border-color .22s ease,box-shadow .22s ease,transform .22s var(--ease-out);
+}
+.blog-card:hover{
+  border-color:rgba(12,13,16,.45);
+  box-shadow:inset 0 1px rgba(255,255,255,.95), 0 14px 30px rgba(12,13,16,.07);
+  transform:translateY(-2px);
+}
+.blog-card-head{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  margin-bottom:14px;padding-bottom:11px;
+  border-bottom:1px solid var(--line);
+}
+.blog-date{color:var(--muted);font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-weight:500}
+.blog-num{color:var(--saffron);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;font-weight:500}
+.blog-title{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;font-size:24px;line-height:1.1;letter-spacing:-.045em;
+  margin:0 0 10px;
+  color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.blog-excerpt{
+  color:var(--muted);font-size:13px;line-height:1.42;
+  margin:0 0 14px;flex:1;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.blog-tags{display:flex;flex-wrap:wrap;gap:0;margin:0 0 14px;list-style:none}
+.blog-tags li{color:var(--ink);font-size:9px;letter-spacing:.05em;text-transform:uppercase;font-weight:500}
+.blog-tags li:not(:last-child)::after{color:#999;content:"/";margin:0 6px}
+.blog-link{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  margin-top:auto;padding-top:12px;
+  border-top:1px solid var(--line);
+  color:var(--ink);font-size:12px;letter-spacing:-.005em;
+  transition:color .18s ease;
+}
+.blog-card:hover .blog-link{color:var(--cobalt)}
+
+/* all work bridge */
+.all-work-card{
+  display:grid;grid-template-columns:.76fr 1.24fr;gap:16px;
+  min-height:264px;margin-top:52px;padding:15px;
+  background:#F8F8F5;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:inset 0 1px rgba(255,255,255,.88), 0 11px 28px rgba(12,13,16,.06);
+  transition:box-shadow .22s ease,border-color .22s ease;
+  overflow:hidden;
+}
+.all-work-card:hover{border-color:rgba(12,13,16,.45);box-shadow:inset 0 1px rgba(255,255,255,.90), 0 16px 36px rgba(12,13,16,.09)}
+.work-bridge-copy{
+  display:flex;flex-direction:column;padding:5px 6px;
+}
+.work-bridge-copy>span,.work-bridge-art>span{color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-size:10px;font-weight:500}
+.work-bridge-copy strong{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;
+  font-size:clamp(24px,2.65vw,42px);line-height:.98;letter-spacing:-.045em;
+  margin-top:auto;
+}
+.work-bridge-copy strong .arrow{margin-left:4px}
+.work-bridge-copy p{max-width:390px;color:var(--muted);margin:16px 0 1px;font-size:13px;line-height:1.4}
+.work-bridge-art{
+  position:relative;
+  background:linear-gradient(124deg,#DBD9FF 0%,#F0D7D2 53%,#F5D26D 100%);
+  border:1px solid var(--line);
+  border-radius:9px;
+  display:flex;justify-content:center;align-items:center;min-height:232px;overflow:hidden;
+}
+.work-bridge-art svg{width:82%;max-width:650px;height:83%;object-fit:contain;mix-blend-mode:multiply;transition:transform .44s var(--ease-out)}
+.all-work-card:hover .work-bridge-art svg{transform:translateY(-3px) scale(1.015)}
+.work-bridge-art>span{color:rgba(23,27,33,.66);position:absolute;bottom:9px;right:10px}
+
+/* ─── Dark section: capabilities & about ─────────────────── */
+.dark-section{
+  background:var(--dark);color:#F0EEE5;
+  margin-top:10px;position:relative;
+  box-shadow:0 -10px 30px rgba(12,13,16,.08);
+}
+.dark-shell{padding-top:72px;padding-bottom:72px}
+.dark-heading{align-items:flex-end}
+.dark-heading .section-title{border-color:var(--dark-line);color:#F0EEE5}
+.dark-heading p{color:rgba(235,234,228,.72)}
+
+.practice-summary{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border:1px solid var(--dark-line);
+  border-radius:12px;
+  margin-top:17px;overflow:hidden;
+  background:0 0;
+}
+.practice-summary div{
+  border-right:1px solid var(--dark-line);
+  min-height:88px;padding:15px 17px;
+}
+.practice-summary div:last-child{border-right:0}
+.practice-summary span,.capability-head,.capability-output span,.process-list li>span,.editorial-head{color:var(--dark-muted);letter-spacing:.08em;text-transform:uppercase;font-size:10px;font-weight:500}
+.practice-summary strong{
+  display:block;margin-top:19px;
+  font-size:14px;font-weight:500;letter-spacing:-.025em;
+}
+
+.capability-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;margin-top:15px;
+}
+.capability-card{
+  display:flex;flex-direction:column;
+  min-height:292px;padding:17px;
+  background:0 0;
+  border:1px solid var(--dark-line);
+  border-radius:12px;
+  transition:background-color .22s ease,border-color .22s ease;
+}
+.capability-card:hover{background:rgba(255,255,255,.04);border-color:rgba(240,238,229,.55)}
+.capability-head{display:flex;justify-content:space-between;gap:16px;align-items:center}
+.capability-head .no{color:var(--saffron);letter-spacing:.02em;font-size:12px}
+.capability-card h3{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;font-size:clamp(23px,2vw,31px);line-height:1.02;letter-spacing:-.035em;
+  margin:33px 0 10px;
+}
+.capability-card>p{color:#C7C9C1;max-width:520px;margin:0;font-size:14px;line-height:1.46}
+.capability-methods{
+  display:flex;flex-wrap:wrap;gap:0;
+  margin:19px 0 22px;padding:0;list-style:none;
+}
+.capability-methods li{color:#D5D7D0;font-size:11px;line-height:1.4}
+.capability-methods li:not(:last-child)::after{color:#777A74;content:"/";margin:0 8px}
+.capability-output{
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--dark-line);
+  gap:15px;margin-top:auto;padding-top:12px;
+}
+.capability-output strong{text-align:right;font-size:12px;font-weight:500}
+
+.about-grid{
+  display:grid;grid-template-columns:1.12fr .88fr;gap:16px;margin-top:48px;
+}
+.about-copy-card,.about-graphic-card{
+  border:1px solid var(--dark-line);
+  border-radius:12px;background:0 0;
+  min-height:520px;overflow:hidden;
+  box-shadow:inset 0 1px rgba(255,255,255,.04);
+}
+.about-copy-card{display:flex;flex-direction:column}
+.about-copy-card .card-label{border-color:var(--dark-line);color:var(--dark-muted);background:0 0}
+.about-large{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;font-size:clamp(25px,2.7vw,41px);line-height:1.02;letter-spacing:-.04em;
+  max-width:710px;margin:27px 19px 20px;
+}
+.about-story{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid var(--dark-line);
+  border-bottom:1px solid var(--dark-line);
+  margin:0 19px 18px;
+}
+.about-story p{color:#D1D3CC;margin:0;padding:13px 14px 14px 0;font-size:12px;line-height:1.48}
+.about-story p+p{border-left:1px solid var(--dark-line);padding-left:14px}
+.about-story span{color:var(--dark-muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;font-size:9px;display:block}
+.about-facts{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--dark-line);
+  border-bottom:1px solid var(--dark-line);
+  margin:auto 19px 16px;
+}
+.about-facts div{border-right:1px solid var(--dark-line);padding:10px 9px 11px 0}
+.about-facts div:not(:first-child){padding-left:10px}
+.about-facts div:last-child{border-right:0}
+.about-facts dt,.about-facts dd{margin:0}
+.about-facts dt{color:var(--dark-muted);letter-spacing:.05em;font-size:10px;text-transform:uppercase}
+.about-facts dd{margin-top:8px;font-size:12px;line-height:1.3}
+.about-small{max-width:570px;color:var(--dark-muted);margin:0 19px 20px;font-size:12px;line-height:1.45}
+
+/* Sol voice block (dark) */
+.sol-voice{
+  display:flex;align-items:flex-start;gap:13px;
+  margin:0 19px 20px;padding:16px 16px 16px 14px;
+  background:rgba(232,163,58,.07);
+  border:1px solid rgba(232,163,58,.34);
+  border-left:3px solid var(--saffron);
+  border-radius:10px;
+  position:relative;
+}
+.sol-voice-mark{
+  display:block;flex:none;
+  width:36px;height:36px;
+}
+.sol-voice-mark svg{width:100%;height:100%;display:block}
+.sol-voice-body{flex:1;min-width:0}
+.sol-voice-line{
+  margin:0;font-size:13.5px;line-height:1.45;letter-spacing:-.01em;
+  color:#ECEEE7;font-family:'Bricolage Grotesque',serif;font-weight:500;
+}
+.sol-voice-foot{
+  display:flex;align-items:center;gap:6px;
+  margin-top:10px;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--dark-muted);
+}
+.sol-voice-foot strong{color:var(--saffron);font-weight:600;letter-spacing:.04em}
+.sol-voice-foot a{color:#D5D7D0;border-bottom:1px solid rgba(232,163,58,.4);padding-bottom:1px;transition:color .18s ease,border-color .18s ease}
+.sol-voice-foot a:hover{color:var(--saffron);border-color:var(--saffron)}
+
+.about-graphic-card{
+  color:#F0EEE5;
+  background-color:#101210;
+  background-image:linear-gradient(rgba(240,238,229,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(240,238,229,.045) 1px,transparent 1px);
+  background-size:18px 18px;
+  position:relative;
+}
+.about-graphic-card::before{
+  content:"";position:absolute;inset:40px;border-radius:50%;
+  background:radial-gradient(circle at 72% 20%,rgba(43,79,227,.30),transparent 36%),radial-gradient(circle at 25% 78%,rgba(232,163,58,.20),transparent 32%);
+  filter:blur(18px);
+}
+.about-graphic-card .card-label{
+  z-index:1;position:relative;
+  border-color:var(--dark-line);color:var(--dark-muted);background:0 0;
+}
+.about-illustration-wrap{
+  position:relative;z-index:1;
+  height:220px;margin:15px 15px 0;
+  background:#F8F8F5;
+  border:1px solid var(--dark-line);
+  border-radius:9px;overflow:hidden;
+  box-shadow:0 14px 28px rgba(0,0,0,.25);
+}
+.about-illustration-wrap svg{width:100%;height:100%;object-fit:contain;transition:transform .44s var(--ease-out)}
+.about-graphic-card:hover .about-illustration-wrap svg{transform:scale(1.02)}
+.about-illustration-wrap span{
+  position:absolute;bottom:7px;right:8px;
+  color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(248,248,245,.90);
+  border:1px solid rgba(23,27,33,.25);
+  border-radius:6px;padding:5px 7px;
+  font-size:8px;font-weight:500;
+}
+.process-list{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
+  margin:0;padding:10px 15px 15px;list-style:none;
+}
+.process-list li{
+  display:flex;flex-direction:column;gap:27px;
+  border:1px solid var(--dark-line);
+  background:rgba(9,10,9,.68);
+  border-radius:8px;
+  min-height:126px;padding:11px;
+  transition:background-color .22s ease,transform .22s var(--ease-out);
+}
+.process-list li:hover{background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.process-list li>span{
+  display:grid;place-items:center;
+  width:30px;height:30px;
+  color:var(--ink);letter-spacing:.02em;
+  background:var(--saffron);
+  border:1px solid var(--ink);
+  border-radius:50%;
+  font-size:10px;font-weight:600;
+}
+.process-list li p{font-size:13px;line-height:1.3;letter-spacing:-.025em;margin:0}
+
+/* ─── Footer / contact ──────────────────────────────────── */
+.site-footer{padding-top:82px;padding-bottom:28px}
+.contact-card{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:30px;
+  min-height:245px;padding:24px;
+  background:linear-gradient(118deg,#DFE6FF 0%,#C9D5FF 55%,#F0D4CA 100%);
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:inset 0 1px rgba(255,255,255,.80), 0 12px 30px rgba(12,13,16,.08);
+}
+.contact-card h2{
+  font-family:'Bricolage Grotesque',serif;
+  font-weight:500;
+  font-size:clamp(34px,4.4vw,64px);line-height:.94;letter-spacing:-.085em;
+  max-width:760px;margin:10px 0 0;
+}
+.contact-context{max-width:650px;color:var(--muted);margin:17px 0 0;font-size:13px;line-height:1.45}
+.contact-button{background:var(--ink);border-color:var(--ink);color:var(--paper);flex:none;margin-bottom:2px}
+.contact-button:hover{background:var(--cobalt);border-color:var(--cobalt)}
+
+.footer-grid{
+  display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:16px;margin-top:16px;
+}
+.footer-card{
+  display:flex;flex-direction:column;
+  min-height:210px;padding:16px;
+  background:#F6F6F2;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:inset 0 1px rgba(255,255,255,.85), 0 8px 20px rgba(12,13,16,.04);
+}
+.footer-title{color:var(--muted);margin:0 0 19px}
+.footer-card a,.footer-card>span{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  border-bottom:1px solid var(--line);
+  min-height:36px;padding:0 1px;
+  font-size:13px;
+  transition:color .18s ease;
+}
+.footer-card a:hover{color:var(--cobalt)}
+.footer-card a:last-child{border-bottom:0}
+.footer-note p{max-width:300px;margin:0;font-size:13px;line-height:1.45}
+.footer-note .art-credit{color:var(--muted);margin-top:13px;font-size:11px}
+.footer-note>span{
+  display:block;color:var(--muted);
+  letter-spacing:.06em;text-transform:uppercase;
+  margin-top:auto;padding-top:14px;
+  font-size:10px;
+}
+.footer-sol-credit{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  margin:14px 0 0;
+  padding:11px 12px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-left:3px solid var(--saffron);
+  border-radius:8px;
+  font-size:11px;line-height:1.4;letter-spacing:-.01em;color:var(--ink);
+}
+.sol-pill{
+  display:grid;place-items:center;flex:none;
+  width:24px;height:24px;
+  background:var(--saffron);
+  border:1px solid var(--ink);
+  border-radius:50%;
+  box-shadow:0 2px 4px rgba(12,13,16,.10);
+}
+.sol-pill svg{width:100%;height:100%;display:block}
+.footer-sol-credit a{color:var(--ink);font-weight:600;border-bottom:1px solid var(--saffron);padding-bottom:1px;transition:color .18s ease,border-color .18s ease}
+.footer-sol-credit a:hover{color:var(--cobalt);border-color:var(--cobalt)}
+.footer-action{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  width:100%;min-height:36px;padding:0 1px;
+  border:0;border-bottom:1px solid var(--line);
+  background:0 0;text-align:left;
+  font-size:13px;letter-spacing:-.005em;
+  transition:color .18s ease;
+}
+.footer-action:hover{color:var(--cobalt)}
+.footer-action b{color:var(--muted);font-weight:500}
+.footer-action:last-of-type{border-bottom:0}
+
+/* ─── Site toast (replaces unDraw-style feature) ───────── */
+.site-toast{
+  position:fixed;left:50%;bottom:25px;z-index:100;
+  transform:translate(50%,18px);
+  display:flex;align-items:center;gap:10px;
+  max-width:min(440px,100vw - 28px);
+  padding:9px 13px 9px 9px;
+  background:rgba(12,13,16,.94);
+  color:#F7F7F4;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;
+  box-shadow:0 14px 38px rgba(12,13,16,.26);
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease,transform .3s var(--ease-out);
+}
+.site-toast.is-visible{opacity:1;transform:translate(50%,0)}
+.site-toast>span{
+  display:grid;place-items:center;
+  width:25px;height:25px;border-radius:50%;
+  background:var(--saffron);color:var(--ink);
+  font-size:12px;font-weight:600;
+}
+.site-toast p{margin:0;font-size:12px;line-height:1.35}
+
+/* ─── Scroll reveal ─────────────────────────────────────── */
+.motion-ready [data-reveal]{
+  opacity:0;
+  transition:opacity .62s var(--ease-out), transform .62s var(--ease-out);
+  transition-delay:var(--reveal-delay,0s);
+  transform:translateY(20px);
+}
+.motion-ready [data-reveal].is-visible{opacity:1;transform:translateY(0)}
+
+/* ─── Keyframes ─────────────────────────────────────────── */
+@keyframes hero-enter{
+  0%{opacity:0;transform:translateY(14px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+@keyframes monogram-enter{
+  0%{opacity:0;transform:translateY(10px) scale(.94)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes subtle-pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.45}
+}
+.pulse{animation:subtle-pulse 2.4s ease-in-out infinite}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width:1099px){
+  .hero-grid{
+    grid-template-rows:repeat(8,92px);
+    grid-template-columns:repeat(8,minmax(0,1fr));
+  }
+  .identity-card{grid-area:1/1/span 4/span 4}
+  .intro-card{grid-area:1/5/span 2/span 4}
+  .signal-card{grid-area:3/5/span 2/span 2}
+  .resume-card{grid-area:3/7/span 2/span 2}
+  .skills-card{grid-area:5/1/span 2/span 4}
+  .hero-project-card{grid-area:5/5/span 4/span 4}
+  .explore-card{grid-area:7/1/span 2/span 4}
+  .project-row{grid-template-columns:minmax(250px,.92fr) minmax(0,1.6fr)}
+  .project-palimpsest{grid-template-columns:minmax(0,1.6fr) minmax(250px,.92fr)}
+  .project-info,.project-visual{height:500px;min-height:500px}
+  .editorial-stage{grid-template-columns:minmax(0,1.08fr) minmax(175px,.72fr);gap:18px;padding:18px}
+  .reading-stage,.transfer-stage{grid-template-columns:minmax(175px,.72fr) minmax(0,1.08fr)}
+  .editorial-feature strong,.reading-feature strong,.transfer-feature strong{font-size:27px}
+  .process-list{grid-template-columns:repeat(2,1fr)}
+  .about-copy-card,.about-graphic-card{min-height:640px}
+  .app-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .app-card{min-height:220px}
+  .blog-grid{grid-template-columns:1fr;gap:14px}
+  .blog-card{min-height:0;padding:17px 17px 15px}
+  .blog-title{font-size:21px}
+}
+
+@media (min-width:768px) and (max-width:1240px){
+  .identity-card{--scene-h:clamp(188px,17vw,202px)}
+  .identity-body{gap:18px;padding-left:16px;padding-right:16px}
+  .identity-footnote{padding-left:16px;padding-right:16px}
+  .intro-card-content{flex-direction:column;gap:11px;padding:12px 14px 13px;display:flex}
+  .intro-card-content>p{font-size:clamp(13px,1.25vw,15px)}
+  .intro-meta{width:100%;margin-top:auto}
+  .primary-button{align-self:flex-end;min-height:36px;padding-left:13px;padding-right:13px}
+}
+
+@media (max-width:767px){
+  .site-nav{min-height:64px;padding:9px 14px}
+  .name-pill{white-space:nowrap;max-width:225px;min-height:36px;padding:0 10px;font-size:11px;overflow:hidden}
+  .name-pill .tag{text-overflow:ellipsis;overflow:hidden}
+  .pill-divider{height:12px}
+  .nav-links{gap:4px}
+  .nav-links a{justify-content:center;min-width:43px;min-height:36px;padding:0 9px;font-size:12px}
+  .page-shell{padding-left:14px;padding-right:14px}
+  .intro-shell{padding-top:14px;padding-bottom:38px}
+  .section-kicker{padding-bottom:10px;font-size:10px}
+  .hero-grid{grid-template-rows:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .hero-card{min-height:0}
+  .identity-card{grid-area:auto;min-height:408px}
+  .intro-card{grid-area:auto;min-height:280px}
+  .hero-project-card{grid-area:auto;min-height:415px}
+  .skills-card{grid-area:auto;min-height:190px}
+  .signal-card{grid-area:auto;min-height:245px}
+  .resume-card{grid-area:auto;min-height:245px}
+  .explore-card{grid-area:auto;min-height:182px}
+  .identity-body{padding:15px}
+  .identity-card h1{white-space:normal;width:100%;max-width:none;font-size:38px}
+  .identity-footnote{padding:11px 15px 15px}
+  .intro-card-content{flex-direction:column;padding:14px;display:flex}
+  .intro-card-content>p{font-size:17px}
+  .intro-meta{grid-template-columns:repeat(3,minmax(0,1fr));width:100%;margin-top:auto;display:grid}
+  .intro-meta div{min-width:0}
+  .primary-button{width:100%}
+  .hero-product-preview{min-height:285px}
+  .hero-product-preview svg{width:100%;height:65%}
+  .hero-preview-note{border-top:1px solid rgba(24,32,43,.24);border-left:0;width:100%;height:35%;top:auto;bottom:0}
+  .hero-preview-note strong{margin:7px 0 5px;font-size:14px}
+  .field-note-body p{font-size:14px}
+  .resume-word{font-size:36px}
+  .projects-section{padding-bottom:58px}
+  .section-heading{flex-direction:column;align-items:flex-start;gap:13px}
+  .section-heading p{text-align:left;white-space:normal;font-size:14px}
+  .project-row,.project-palimpsest{flex-direction:column;gap:10px;margin-top:10px;display:flex}
+  .project-info,.project-visual{min-height:0}
+  .project-visual,.project-palimpsest .project-visual{order:-1;height:465px}
+  .project-info,.project-palimpsest .project-info{order:0;height:auto;padding:15px}
+  .project-index{margin-bottom:16px}
+  .project-info h2{font-size:43px}
+  .project-type{max-width:none;margin-top:10px;font-size:15px}
+  .project-facts{margin-top:26px;margin-bottom:20px}
+  .project-facts div{grid-template-columns:72px 1fr;padding:10px 0}
+  .project-footer{margin-top:0}
+  .editorial-head,.editorial-foot{padding-left:13px;padding-right:13px;font-size:9px}
+  .editorial-stage,.reading-stage,.transfer-stage{grid-template-rows:minmax(0,1fr) auto;grid-template-columns:1fr;gap:12px;padding:14px}
+  .reading-stage .editorial-image,.transfer-stage .editorial-image{order:-1}
+  .editorial-image{min-height:220px}
+  .editorial-feature{min-height:108px;padding:0}
+  .editorial-feature strong,.reading-feature strong,.transfer-feature strong{margin-top:8px;font-size:24px}
+  .editorial-feature p{margin-top:8px}
+  .editorial-feature small{display:none}
+  .all-work-card{flex-direction:column;align-items:stretch;gap:12px;min-height:440px;margin-top:36px;padding:10px;display:flex}
+  .work-bridge-copy{min-height:190px;padding:6px}
+  .work-bridge-copy strong{font-size:28px}
+  .work-bridge-art{min-height:230px}
+  .work-bridge-art svg{width:95%}
+  .app-grid{grid-template-columns:1fr;gap:10px;margin-top:14px}
+  .app-card{min-height:0;padding:15px}
+  .app-name{font-size:21px}
+  .blog-section{padding-bottom:48px}
+  .blog-grid{gap:10px;margin-top:14px}
+  .blog-card{padding:15px}
+  .blog-excerpt{-webkit-line-clamp:3}
+  .sol-voice{margin-left:15px;margin-right:15px;padding:13px 14px 13px 12px;gap:11px}
+  .sol-voice-mark{width:32px;height:32px}
+  .sol-voice-line{font-size:13px}
+  .identity-footnote .sol-credit{font-size:10.5px}
+  .dark-shell{padding-top:56px;padding-bottom:56px}
+  .practice-summary{grid-template-columns:1fr;margin-top:10px}
+  .practice-summary div{border-right:0;border-bottom:1px solid var(--dark-line);min-height:76px}
+  .practice-summary div:last-child{border-bottom:0}
+  .practice-summary strong{margin-top:12px}
+  .capability-grid{grid-template-columns:1fr;gap:10px;margin-top:10px}
+  .capability-card{min-height:270px}
+  .about-grid{grid-template-columns:1fr;gap:10px;margin-top:38px}
+  .about-copy-card{min-height:590px}
+  .about-graphic-card{min-height:680px}
+  .about-large{margin-left:15px;margin-right:15px;font-size:32px}
+  .about-story{grid-template-columns:1fr;margin-left:15px;margin-right:15px}
+  .about-story p{padding:12px 0}
+  .about-story p+p{border-top:1px solid var(--dark-line);border-left:0;padding-left:0}
+  .about-facts{grid-template-columns:1fr;margin-left:15px;margin-right:15px}
+  .about-facts div,.about-facts div:not(:first-child){border-right:0;border-bottom:1px solid var(--dark-line);padding:8px 0}
+  .about-facts div:last-child{border-bottom:0}
+  .about-facts dt,.about-facts dd{display:inline}
+  .about-facts dd{margin-left:12px}
+  .about-small{margin-left:15px;margin-right:15px}
+  .about-illustration-wrap{height:230px}
+  .process-list{grid-template-columns:repeat(2,1fr);padding:10px 12px 12px}
+  .process-list li{min-height:180px;padding:11px}
+  .process-list li p{margin-top:40px;font-size:13px}
+  .site-footer{padding-top:56px;padding-bottom:17px}
+  .contact-card{flex-direction:column;align-items:flex-start;min-height:285px;padding:17px}
+  .contact-card h2{font-size:42px}
+  .contact-context{margin-top:14px}
+  .contact-button{width:100%}
+  .footer-grid{grid-template-columns:1fr;gap:10px;margin-top:10px}
+  .footer-card{min-height:174px}
+  .footer-note{min-height:190px}
+}
+
+@media (max-width:420px){
+  .name-pill{max-width:183px}
+  .name-pill .tag{display:none}
+  .site-nav{gap:8px}
+  .nav-links a{min-width:42px;padding:0 7px}
+  .identity-card h1{font-size:34px}
+  .project-visual{height:455px}
+  .contact-card h2{font-size:36px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,::before,::after{transition-duration:.01ms!important;transition-delay:0s!important;animation-duration:.01ms!important;animation-delay:0s!important}
+  .motion-ready [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────── -->
+<nav class="site-nav" aria-label="Primary navigation">
+  <a class="name-pill" href="#top" aria-label="Back to homepage">
+    <span class="dot" aria-hidden="true"></span>
+    <span>Anne Marie Lee</span>
+    <span class="pill-divider" aria-hidden="true"></span>
+    <span class="tag">Indie AI systems engineer</span>
+  </a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">Approach</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ─── HERO GRID ──────────────────────────────────────── -->
+<section class="page-shell intro-shell" id="top" aria-labelledby="intro-title">
+  <div class="section-kicker">
+    <span>PORTFOLIO / 2026</span>
+    <span>BELFAST · WORKS REMOTELY</span>
+  </div>
+
+  <div class="hero-grid">
+
+    <!-- 1. Identity -->
+    <article class="hero-card identity-card" aria-labelledby="intro-title">
+      <div class="card-label">
+        <span>01 / PROFILE</span>
+        <span>AMRE / 26</span>
+      </div>
+      <div class="identity-body">
+        <div class="identity-scene" aria-hidden="true">
+          <!-- Profile illustration: desk scene -->
+          <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Workstation with a terminal, books, and a hot drink">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#E8D9D0"/>
+                <stop offset="1" stop-color="#C9C0DC"/>
+              </linearGradient>
+              <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#1A1B22"/>
+                <stop offset="1" stop-color="#0C0D10"/>
+              </linearGradient>
+            </defs>
+            <!-- backdrop wall -->
+            <rect width="400" height="240" fill="#F8F4EC"/>
+            <rect width="400" height="138" fill="url(#sky)"/>
+            <!-- window frame -->
+            <rect x="32" y="20" width="160" height="108" fill="#0C0D10" opacity="0.06" rx="4"/>
+            <line x1="112" y1="20" x2="112" y2="128" stroke="#0C0D10" stroke-width="1" opacity="0.18"/>
+            <line x1="32" y1="74" x2="192" y2="74" stroke="#0C0D10" stroke-width="1" opacity="0.18"/>
+            <!-- distant buildings -->
+            <g fill="#0C0D10" opacity="0.18">
+              <rect x="50" y="86" width="18" height="42"/>
+              <rect x="74" y="78" width="14" height="50"/>
+              <rect x="98" y="92" width="22" height="36"/>
+              <rect x="126" y="82" width="12" height="46"/>
+              <rect x="142" y="94" width="20" height="34"/>
+              <rect x="166" y="86" width="14" height="42"/>
+            </g>
+            <!-- desk -->
+            <rect x="0" y="156" width="400" height="84" fill="#E4DBC8"/>
+            <rect x="0" y="156" width="400" height="3" fill="#0C0D10" opacity="0.10"/>
+            <!-- monitor -->
+            <g>
+              <rect x="216" y="44" width="156" height="108" rx="6" fill="#0C0D10"/>
+              <rect x="222" y="50" width="144" height="92" rx="2" fill="url(#screen)"/>
+              <!-- stand -->
+              <path d="M280 152 L308 152 L312 168 L276 168 Z" fill="#0C0D10"/>
+              <rect x="270" y="166" width="48" height="6" rx="2" fill="#0C0D10"/>
+              <!-- terminal lines -->
+              <g fill="#7FB7FF" font-family="JetBrains Mono, monospace" font-size="6">
+                <text x="230" y="62" fill="#7FB7FF">&gt; cd ~/projects/sol</text>
+                <text x="230" y="74" fill="#8DA16B">  run build ✓</text>
+                <text x="230" y="86" fill="#E8A33A">  run swarm --target brief</text>
+                <text x="230" y="98" fill="#D8866C">  · scout 0.4s</text>
+                <text x="230" y="110" fill="#D8866C">  · coder-py 12.1s</text>
+                <text x="230" y="122" fill="#D8866C">  · reviewer 3.7s</text>
+                <text x="230" y="134" fill="#7FB7FF">&gt; _</text>
+              </g>
+              <!-- caret -->
+              <rect class="pulse" x="234" y="129" width="5" height="2" fill="#E8A33A"/>
+            </g>
+            <!-- mug -->
+            <g>
+              <ellipse cx="44" cy="170" rx="14" ry="4" fill="#0C0D10" opacity="0.12"/>
+              <path d="M30 154 L30 188 Q30 196 38 196 L52 196 Q60 196 60 188 L60 154 Z" fill="#E8A33A"/>
+              <path d="M60 162 Q72 162 72 174 Q72 186 60 186" fill="none" stroke="#E8A33A" stroke-width="3"/>
+              <ellipse cx="45" cy="154" rx="15" ry="3" fill="#C28726"/>
+              <!-- steam -->
+              <path d="M40 144 Q44 138 40 132 Q36 126 40 120" stroke="#0C0D10" stroke-width="1.4" fill="none" opacity="0.4" stroke-linecap="round"/>
+              <path d="M50 144 Q54 138 50 132 Q46 126 50 120" stroke="#0C0D10" stroke-width="1.4" fill="none" opacity="0.4" stroke-linecap="round"/>
+            </g>
+            <!-- book stack -->
+            <g>
+              <rect x="84" y="184" width="64" height="14" fill="#2B4FE3"/>
+              <rect x="84" y="184" width="64" height="2" fill="#1A33A8"/>
+              <rect x="92" y="170" width="56" height="14" fill="#D8866C"/>
+              <rect x="92" y="170" width="56" height="2" fill="#A85F47"/>
+              <rect x="100" y="156" width="48" height="14" fill="#7A8A6F"/>
+              <rect x="100" y="156" width="48" height="2" fill="#56624D"/>
+            </g>
+            <!-- plant -->
+            <g>
+              <rect x="356" y="180" width="22" height="14" fill="#A85F47"/>
+              <path d="M367 180 Q358 154 354 140 Q360 152 366 158 Q370 142 372 132 Q372 148 369 162 Q376 154 384 152 Q380 162 372 178 Z" fill="#7A8A6F"/>
+            </g>
+            <!-- person silhouette in monitor reflection (subtle) -->
+            <g opacity="0.10">
+              <circle cx="294" cy="86" r="10" fill="#F0EEE5"/>
+              <path d="M278 116 Q294 96 310 116 L310 142 L278 142 Z" fill="#F0EEE5"/>
+            </g>
+          </svg>
+          <span class="identity-stamp">AMRE / 26</span>
+        </div>
+        <div class="identity-copy">
+          <p class="micro-copy">AMRE / INDIE AI SYSTEMS</p>
+          <h1 id="intro-title">
+            <span>I build tools that</span>
+            <span>AI and humans can use together.</span>
+          </h1>
+        </div>
+      </div>
+      <div class="identity-footnote">
+        <p>OpenClaw skills, multi-agent swarms, local-first software. Built in Belfast, shipped to the world.</p>
+        <p class="sol-credit">Site built &amp; maintained by <a href="https://thesolai.github.io/" target="_blank" rel="noopener">Sol AI</a> · the collaboration is the product.</p>
+      </div>
+    </article>
+
+    <!-- 2. Intro -->
+    <article class="hero-card intro-card" aria-label="Short intro">
+      <div class="card-label">
+        <span>02 / INTRO</span>
+        <span class="live-dot"><i class="dot pulse" aria-hidden="true"></i> SHIPPING</span>
+      </div>
+      <div class="intro-card-content">
+        <p>I'm Anne Marie (Amre). I teach AI agents how to do real work, then ship what they make. Open source, local-first, no middlemen.</p>
+        <dl class="intro-meta">
+          <div><dt>Focus</dt><dd>Agent systems / Local-first tools</dd></div>
+          <div><dt>Since</dt><dd>2017 · self-taught</dd></div>
+          <div><dt>Mode</dt><dd>Independent / OSS</dd></div>
+        </dl>
+        <a class="button primary-button" href="#work">View work</a>
+      </div>
+    </article>
+
+    <!-- 3. Signal card -->
+    <article class="hero-card signal-card" aria-label="Working principle">
+      <div class="card-label">
+        <span>FIELD NOTE</span>
+        <span>03</span>
+      </div>
+      <div class="field-note-body">
+        <strong>22:14</strong>
+        <p>If a person with dyslexia can teach herself Python using AI, every assumption about who builds software is up for review.</p>
+      </div>
+      <a class="text-action inverted" href="#about">Read the bio <span class="arrow" aria-hidden="true">→</span></a>
+    </article>
+
+    <!-- 4. CV / bio card -->
+    <article class="hero-card resume-card" aria-label="Bio card">
+      <div class="card-label">
+        <span>BIO</span>
+        <span>04</span>
+      </div>
+      <div class="resume-word">am.re</div>
+      <dl class="resume-meta">
+        <div><dt>From</dt><dd>Belfast, UK</dd></div>
+        <div><dt>Stack</dt><dd>Python · Swift · JS</dd></div>
+      </dl>
+      <button class="button quiet-button" type="button" data-toast="Full bio is on thesolai.github.io/about">Read full bio</button>
+    </article>
+
+    <!-- 5. Skills card -->
+    <article class="hero-card skills-card" aria-label="Core capabilities">
+      <div class="card-label">
+        <span>CORE CAPABILITIES</span>
+        <span>04 AREAS</span>
+      </div>
+      <div class="skill-list">
+        <div><span class="no">01 / AGENT SYSTEMS</span><strong>Multi-agent swarms, memory, tool use</strong></div>
+        <div><span class="no">02 / LOCAL-FIRST</span><strong>Self-hosted stacks, Ollama, no cloud lock-in</strong></div>
+        <div><span class="no">03 / OPEN SOURCE</span><strong>MIT-licensed skills, marketplaces, docs</strong></div>
+        <div><span class="no">04 / PRODUCT</span><strong>End-to-end shipping, from CLI to .app</strong></div>
+      </div>
+    </article>
+
+    <!-- 6. Hero project preview -->
+    <article class="hero-card hero-project-card" aria-label="Featured project: OpenClaw Skills Marketplace">
+      <div class="card-label">
+        <span>FEATURED / 01</span>
+        <span>OPENCLAW SKILLS</span>
+      </div>
+      <div class="hero-product-preview" aria-hidden="true">
+        <!-- OpenClaw skills illustration -->
+        <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OpenClaw skills marketplace illustration">
+          <defs>
+            <linearGradient id="claw-bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#E5E2F2"/>
+              <stop offset="1" stop-color="#F0D7D2"/>
+            </linearGradient>
+          </defs>
+          <rect width="360" height="240" fill="url(#claw-bg)"/>
+          <!-- grid of skill cards -->
+          <g>
+            <!-- card 1 -->
+            <g transform="translate(40,32) rotate(-3)">
+              <rect width="74" height="74" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="2"/>
+              <rect x="8" y="8" width="58" height="22" rx="4" fill="#E8A33A"/>
+              <text x="37" y="23" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#0C0D10" letter-spacing="0.5">EMAIL</text>
+              <line x1="8" y1="38" x2="66" y2="38" stroke="#0C0D10" stroke-width="1" opacity="0.18"/>
+              <line x1="8" y1="46" x2="56" y2="46" stroke="#0C0D10" stroke-width="1" opacity="0.18"/>
+              <line x1="8" y1="54" x2="50" y2="54" stroke="#0C0D10" stroke-width="1" opacity="0.18"/>
+              <rect x="8" y="60" width="22" height="8" rx="2" fill="#2B4FE3"/>
+            </g>
+            <!-- card 2 -->
+            <g transform="translate(124,30) rotate(2)">
+              <rect width="74" height="74" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="2"/>
+              <rect x="8" y="8" width="58" height="22" rx="4" fill="#2B4FE3"/>
+              <text x="37" y="23" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">CODE</text>
+              <g stroke="#0C0D10" stroke-width="1.2" opacity="0.4">
+                <line x1="14" y1="42" x2="30" y2="42"/>
+                <line x1="34" y1="42" x2="50" y2="42"/>
+                <line x1="14" y1="50" x2="38" y2="50"/>
+                <line x1="42" y1="50" x2="56" y2="50"/>
+                <line x1="14" y1="58" x2="26" y2="58"/>
+              </g>
+              <rect x="8" y="60" width="22" height="8" rx="2" fill="#E8A33A"/>
+            </g>
+            <!-- card 3 -->
+            <g transform="translate(208,38) rotate(-1)">
+              <rect width="74" height="74" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="2"/>
+              <rect x="8" y="8" width="58" height="22" rx="4" fill="#7A8A6F"/>
+              <text x="37" y="23" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">VISION</text>
+              <circle cx="22" cy="46" r="6" fill="none" stroke="#0C0D10" stroke-width="1.5"/>
+              <circle cx="40" cy="46" r="6" fill="none" stroke="#0C0D10" stroke-width="1.5"/>
+              <circle cx="58" cy="46" r="6" fill="none" stroke="#0C0D10" stroke-width="1.5"/>
+              <circle cx="22" cy="46" r="2" fill="#0C0D10"/>
+              <circle cx="40" cy="46" r="2" fill="#0C0D10"/>
+              <circle cx="58" cy="46" r="2" fill="#0C0D10"/>
+              <rect x="8" y="60" width="22" height="8" rx="2" fill="#D8866C"/>
+            </g>
+            <!-- card 4 -->
+            <g transform="translate(72,128) rotate(1)">
+              <rect width="74" height="74" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="2"/>
+              <rect x="8" y="8" width="58" height="22" rx="4" fill="#D8866C"/>
+              <text x="37" y="23" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">AUDIO</text>
+              <g stroke="#0C0D10" stroke-width="1.4" stroke-linecap="round">
+                <line x1="16" y1="48" x2="16" y2="42"/>
+                <line x1="22" y1="48" x2="22" y2="38"/>
+                <line x1="28" y1="48" x2="28" y2="34"/>
+                <line x1="34" y1="48" x2="34" y2="40"/>
+                <line x1="40" y1="48" x2="40" y2="36"/>
+                <line x1="46" y1="48" x2="46" y2="42"/>
+                <line x1="52" y1="48" x2="52" y2="38"/>
+                <line x1="58" y1="48" x2="58" y2="44"/>
+              </g>
+              <rect x="8" y="60" width="22" height="8" rx="2" fill="#2B4FE3"/>
+            </g>
+            <!-- card 5 -->
+            <g transform="translate(160,138) rotate(-2)">
+              <rect width="74" height="74" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="2"/>
+              <rect x="8" y="8" width="58" height="22" rx="4" fill="#0C0D10"/>
+              <text x="37" y="23" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#E8A33A" letter-spacing="0.5">SWARM</text>
+              <g fill="#0C0D10">
+                <circle cx="22" cy="46" r="3"/>
+                <circle cx="40" cy="40" r="3"/>
+                <circle cx="58" cy="48" r="3"/>
+                <circle cx="30" cy="58" r="3"/>
+                <circle cx="50" cy="58" r="3"/>
+              </g>
+              <g stroke="#0C0D10" stroke-width="1" opacity="0.5">
+                <line x1="22" y1="46" x2="40" y2="40"/>
+                <line x1="40" y1="40" x2="58" y2="48"/>
+                <line x1="22" y1="46" x2="30" y2="58"/>
+                <line x1="58" y1="48" x2="50" y2="58"/>
+                <line x1="30" y1="58" x2="50" y2="58"/>
+              </g>
+              <rect x="8" y="60" width="22" height="8" rx="2" fill="#7A8A6F"/>
+            </g>
+            <!-- card 6 (small, top right) -->
+            <g transform="translate(258,134) rotate(3)">
+              <rect width="74" height="74" rx="10" fill="#0C0D10" stroke="#0C0D10" stroke-width="2"/>
+              <text x="37" y="36" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="22" font-weight="500" fill="#E8A33A">46+</text>
+              <text x="37" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#F0EEE5" letter-spacing="1.2">SKILLS</text>
+              <line x1="20" y1="58" x2="54" y2="58" stroke="#E8A33A" stroke-width="1"/>
+              <text x="37" y="70" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#F0EEE5" letter-spacing="1">MIT · FREE</text>
+            </g>
+          </g>
+        </svg>
+        <div class="hero-preview-note">
+          <span class="tag">MARKETPLACE / 46 SKILLS</span>
+          <strong>One-command install for AI agents that actually do work.</strong>
+          <small>self-learning · email · security · code · vision · swarm</small>
+        </div>
+      </div>
+      <div class="hero-project-bottom">
+        <div>
+          <p class="micro-copy">01 / OPENCLAW SKILLS</p>
+          <h2>Marketplace</h2>
+        </div>
+        <a class="hero-case-link" href="#project-skills">View project <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
+    <!-- 7. Index / explore -->
+    <article class="hero-card explore-card" aria-label="Index">
+      <div class="card-label">
+        <span>INDEX</span>
+        <span>05</span>
+      </div>
+      <a href="#work" class="explore-link"><span>Selected work</span><small>01</small></a>
+      <a href="#about" class="explore-link"><span>Approach &amp; bio</span><small>02</small></a>
+      <a href="#contact" class="explore-link"><span>Get in touch</span><small>03</small></a>
+    </article>
+  </div>
+</section>
+
+<!-- ─── SELECTED WORK ───────────────────────────────────── -->
+<section class="page-shell projects-section" id="work" aria-labelledby="projects-title">
+  <div class="section-heading" data-reveal="true">
+    <span class="section-title" id="projects-title">Selected work</span>
+    <p>Five projects — agent systems, open source, local-first.</p>
+  </div>
+
+  <!-- 01 — OpenClaw skills -->
+  <article class="project-row project-solis solis-visual" id="project-skills" data-reveal="true">
+    <div class="project-info">
+      <div class="project-info-main">
+        <p class="project-index">01 / OPEN SOURCE · AGENT TOOLS</p>
+        <h2>Skills</h2>
+        <p class="project-type">A curated marketplace of 46 production tools for OpenClaw, Claude Code, Codex, and Cursor. MIT-licensed, one-command install, no API keys required.</p>
+      </div>
+      <dl class="project-facts">
+        <div><dt>Scale</dt><dd>46 skills · 8 categories</dd></div>
+        <div><dt>Install</dt><dd>Single CLI command</dd></div>
+        <div><dt>Focus</dt><dd>Real work, not demos</dd></div>
+        <div><dt>License</dt><dd>MIT · free</dd></div>
+      </dl>
+      <div class="project-footer">
+        <div class="project-meta">
+          <span>2026</span>
+          <span>Marketplace / Docs / CLI</span>
+        </div>
+        <a class="case-link" href="https://thesolai.github.io/skills/" target="_blank" rel="noopener">Open marketplace <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="project-visual editorial-visual solis-visual" aria-label="OpenClaw skills marketplace">
+      <div class="editorial-head">
+        <span>01 / SKILLS</span>
+        <span>ONE-COMMAND INSTALL</span>
+      </div>
+      <div class="editorial-stage solis-stage">
+        <div class="editorial-image" aria-hidden="true">
+          <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OpenClaw skills grid">
+            <rect width="320" height="220" fill="#F8F8F5"/>
+            <g>
+              <g transform="translate(20,20)">
+                <rect width="86" height="86" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="1.6"/>
+                <rect x="8" y="8" width="70" height="20" rx="3" fill="#E8A33A"/>
+                <text x="43" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#0C0D10" letter-spacing="0.5">EMAIL</text>
+                <line x1="8" y1="36" x2="78" y2="36" stroke="#0C0D10" stroke-width="0.8" opacity="0.2"/>
+                <line x1="8" y1="44" x2="64" y2="44" stroke="#0C0D10" stroke-width="0.8" opacity="0.2"/>
+                <line x1="8" y1="52" x2="58" y2="52" stroke="#0C0D10" stroke-width="0.8" opacity="0.2"/>
+                <rect x="8" y="66" width="28" height="12" rx="2" fill="#2B4FE3"/>
+              </g>
+              <g transform="translate(118,16)">
+                <rect width="86" height="86" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="1.6"/>
+                <rect x="8" y="8" width="70" height="20" rx="3" fill="#2B4FE3"/>
+                <text x="43" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">SECURITY</text>
+                <path d="M43 36 L43 76 M43 76 L26 60 M43 76 L60 60" stroke="#0C0D10" stroke-width="2" fill="none"/>
+                <circle cx="43" cy="40" r="6" fill="none" stroke="#0C0D10" stroke-width="1.5"/>
+                <line x1="37" y1="40" x2="49" y2="40" stroke="#0C0D10" stroke-width="1.5"/>
+                <rect x="8" y="66" width="28" height="12" rx="2" fill="#E8A33A"/>
+              </g>
+              <g transform="translate(216,22)">
+                <rect width="86" height="86" rx="10" fill="#0C0D10" stroke="#0C0D10" stroke-width="1.6"/>
+                <text x="43" y="42" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="22" font-weight="500" fill="#E8A33A">46+</text>
+                <text x="43" y="56" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#F0EEE5" letter-spacing="1.2">SKILLS</text>
+                <line x1="22" y1="64" x2="64" y2="64" stroke="#E8A33A" stroke-width="0.8"/>
+                <text x="43" y="74" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#F0EEE5" letter-spacing="1">MIT · FREE</text>
+              </g>
+              <g transform="translate(40,124)">
+                <rect width="86" height="86" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="1.6"/>
+                <rect x="8" y="8" width="70" height="20" rx="3" fill="#7A8A6F"/>
+                <text x="43" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">VISION</text>
+                <circle cx="30" cy="48" r="8" fill="none" stroke="#0C0D10" stroke-width="1.5"/>
+                <circle cx="56" cy="48" r="8" fill="none" stroke="#0C0D10" stroke-width="1.5"/>
+                <circle cx="30" cy="48" r="3" fill="#0C0D10"/>
+                <circle cx="56" cy="48" r="3" fill="#0C0D10"/>
+                <rect x="8" y="66" width="28" height="12" rx="2" fill="#D8866C"/>
+              </g>
+              <g transform="translate(138,128)">
+                <rect width="86" height="86" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="1.6"/>
+                <rect x="8" y="8" width="70" height="20" rx="3" fill="#D8866C"/>
+                <text x="43" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">LEARN</text>
+                <g stroke="#0C0D10" stroke-width="1.2" stroke-linecap="round" fill="none">
+                  <circle cx="43" cy="48" r="14"/>
+                  <path d="M29 48 A14 14 0 0 1 57 48"/>
+                </g>
+                <text x="43" y="51" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="600" fill="#0C0D10">MEM</text>
+                <rect x="8" y="66" width="28" height="12" rx="2" fill="#2B4FE3"/>
+              </g>
+              <g transform="translate(236,130)">
+                <rect width="68" height="80" rx="10" fill="#FFFFFF" stroke="#0C0D10" stroke-width="1.6"/>
+                <text x="34" y="34" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="500" fill="#0C0D10">+</text>
+                <text x="34" y="56" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="1.2">ADD SKILL</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="editorial-feature">
+          <span>TODAY'S RECOMMENDATION</span>
+          <strong>One install, real work.</strong>
+          <p>46 production-grade skills. Real email, real security audits, real self-learning memory. No demos.</p>
+          <small>openclaw skills install &lt;repo&gt; · MIT · community-contributed</small>
+        </div>
+      </div>
+      <div class="editorial-foot">
+        <span>8 categories</span>
+        <span>46 skills · MIT</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 02 — NightDreamer (palimpsest layout) -->
+  <article class="project-row project-palimpsest paper-visual" id="project-swarm" data-reveal="true">
+    <div class="project-info">
+      <div class="project-info-main">
+        <p class="project-index">02 / AGENT SWARM · ORCHESTRATION</p>
+        <h2>Swarm</h2>
+        <p class="project-type">A multi-agent system that plans, codes, reviews, and ships. Eight specialised agents — Scout, Coder, Reviewer, Sheriff, plus Dross the Watcher — work a brief end-to-end.</p>
+      </div>
+      <dl class="project-facts">
+        <div><dt>Pipeline</dt><dd>Scout → Architect → Coder</dd></div>
+        <div><dt>Review</dt><dd>Reviewer · Sheriff · Dross</dd></div>
+        <div><dt>Model</dt><dd>Cloud + local Ollama</dd></div>
+        <div><dt>Stack</dt><dd>Python · FastAPI · Redis</dd></div>
+      </dl>
+      <div class="project-footer">
+        <div class="project-meta">
+          <span>2026</span>
+          <span>Multi-agent orchestration</span>
+        </div>
+        <button class="case-link" type="button" data-toast="NightDreamer is closed-source. Email for a walkthrough.">Read brief <span class="arrow" aria-hidden="true">→</span></button>
+      </div>
+    </div>
+    <div class="project-visual editorial-visual paper-visual" aria-label="NightDreamer multi-agent swarm">
+      <div class="editorial-head">
+        <span>02 / SWARM</span>
+        <span>8 AGENTS · 1 BRIEF</span>
+      </div>
+      <div class="editorial-stage reading-stage">
+        <div class="editorial-feature reading-feature">
+          <span>PIPELINE / CURRENT RUN</span>
+          <strong>Brief to working code, end-to-end.</strong>
+          <p>Scout reads. Architect plans. Coders ship. Sheriff checks. Dross watches the whole thing with opinions.</p>
+        </div>
+        <div class="editorial-image" aria-hidden="true">
+          <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Multi-agent swarm illustration">
+            <rect width="320" height="220" fill="#F8F4ED"/>
+            <g stroke="#755B46" stroke-width="0.6" opacity="0.5">
+              <line x1="0" y1="55" x2="320" y2="55"/>
+              <line x1="0" y1="110" x2="320" y2="110"/>
+              <line x1="0" y1="165" x2="320" y2="165"/>
+            </g>
+            <g>
+              <!-- Scout -->
+              <g transform="translate(50,40)">
+                <circle r="22" fill="#E8A33A" stroke="#0C0D10" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="11" font-weight="500" fill="#0C0D10">S</text>
+                <text y="-32" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">SCOUT</text>
+                <text y="44" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#755B46" letter-spacing="0.5">0.4s</text>
+              </g>
+              <!-- Architect -->
+              <g transform="translate(140,40)">
+                <circle r="22" fill="#2B4FE3" stroke="#0C0D10" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="11" font-weight="500" fill="#FFFFFF">A</text>
+                <text y="-32" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">ARCHITECT</text>
+                <text y="44" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#755B46" letter-spacing="0.5">2.1s</text>
+              </g>
+              <!-- Coder -->
+              <g transform="translate(230,40)">
+                <circle r="22" fill="#7A8A6F" stroke="#0C0D10" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="11" font-weight="500" fill="#FFFFFF">C</text>
+                <text y="-32" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">CODER</text>
+                <text y="44" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#755B46" letter-spacing="0.5">12.1s</text>
+              </g>
+              <!-- Reviewer -->
+              <g transform="translate(60,110)">
+                <circle r="22" fill="#D8866C" stroke="#0C0D10" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="11" font-weight="500" fill="#FFFFFF">R</text>
+                <text y="-32" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">REVIEWER</text>
+                <text y="44" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#755B46" letter-spacing="0.5">3.7s</text>
+              </g>
+              <!-- Sheriff -->
+              <g transform="translate(150,110)">
+                <circle r="22" fill="#0C0D10" stroke="#0C0D10" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="11" font-weight="500" fill="#E8A33A">S</text>
+                <text y="-32" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">SHERIFF</text>
+                <text y="44" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#755B46" letter-spacing="0.5">1.2s</text>
+              </g>
+              <!-- Security -->
+              <g transform="translate(240,110)">
+                <circle r="22" fill="#E8A33A" stroke="#0C0D10" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="11" font-weight="500" fill="#0C0D10">S</text>
+                <text y="-32" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">SECURITY</text>
+                <text y="44" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#755B46" letter-spacing="0.5">2.4s</text>
+              </g>
+              <!-- Docs -->
+              <g transform="translate(90,180)">
+                <circle r="22" fill="#F4E2D2" stroke="#0C0D10" stroke-width="1.5"/>
+                <text y="3" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="11" font-weight="500" fill="#0C0D10">D</text>
+                <text y="-32" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">DOCS</text>
+              </g>
+              <!-- Dross (the watcher) -->
+              <g transform="translate(200,180)">
+                <circle r="26" fill="#2B4FE3" stroke="#0C0D10" stroke-width="2"/>
+                <circle r="11" fill="#FFFFFF"/>
+                <circle r="6" fill="#0C0D10"/>
+                <circle cx="2" cy="-2" r="2" fill="#FFFFFF"/>
+                <text y="-36" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" font-weight="600" fill="#2B4FE3" letter-spacing="0.5">DROSS</text>
+                <text y="46" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="500" fill="#755B46" letter-spacing="0.5">WATCHER</text>
+              </g>
+              <!-- connections -->
+              <g stroke="#755B46" stroke-width="1" opacity="0.5" stroke-dasharray="2 2" fill="none">
+                <path d="M72 40 L118 40"/>
+                <path d="M162 40 L208 40"/>
+                <path d="M85 50 L82 88"/>
+                <path d="M172 50 L168 88"/>
+                <path d="M260 50 L262 88"/>
+                <path d="M82 132 L68 158"/>
+                <path d="M172 132 L168 158"/>
+                <path d="M262 132 L222 158"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="editorial-foot">
+        <span>Brief to merged PR</span>
+        <span>~22s · 8 agents</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 03 — Dross -->
+  <article class="project-row project-transfer transfer-visual" id="project-dross" data-reveal="true">
+    <div class="project-info">
+      <div class="project-info-main">
+        <p class="project-index">03 / macOS · DESKTOP AGENT</p>
+        <h2>Dross</h2>
+        <p class="project-type">A SwiftUI status-bar watcher for macOS. Monitors the system, logs everything that matters, and surfaces what needs your attention — without asking.</p>
+      </div>
+      <dl class="project-facts">
+        <div><dt>Platform</dt><dd>macOS · SwiftUI</dd></div>
+        <div><dt>Scope</dt><dd>Status bar + full app</dd></div>
+        <div><dt>Mode</dt><dd>Watcher / notifier</dd></div>
+        <div><dt>Stack</dt><dd>Swift · AppKit · Combine</dd></div>
+      </dl>
+      <div class="project-footer">
+        <div class="project-meta">
+          <span>2026</span>
+          <span>Native macOS · open source</span>
+        </div>
+        <a class="case-link" href="https://github.com/TheSolAI" target="_blank" rel="noopener">View on GitHub <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="project-visual editorial-visual transfer-visual" aria-label="Dross — status bar watcher">
+      <div class="editorial-head">
+        <span>03 / DROSS</span>
+        <span>STATUS-BAR WATCHER</span>
+      </div>
+      <div class="editorial-stage transfer-stage">
+        <div class="editorial-feature transfer-feature">
+          <span>NEXT STEP / WATCHING</span>
+          <strong>An eye in the menu bar that won't look away.</strong>
+          <p>Monitors cron jobs, inboxes, build status, and the things that go quiet. Notifies when something needs you.</p>
+        </div>
+        <div class="editorial-image" aria-hidden="true">
+          <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dross status bar illustration">
+            <defs>
+              <linearGradient id="menu-bg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F4F4EE"/>
+                <stop offset="1" stop-color="#DDDDD0"/>
+              </linearGradient>
+            </defs>
+            <rect width="320" height="220" fill="#F6F6F2"/>
+            <!-- menu bar -->
+            <rect width="320" height="32" fill="url(#menu-bg)" stroke="#0C0D10" stroke-width="0.6"/>
+            <text x="14" y="20" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#0C0D10">  ⌘  Edit  View  Window  Help</text>
+            <!-- Dross eye (large) -->
+            <g transform="translate(160,110)">
+              <ellipse rx="80" ry="50" fill="#0C0D10"/>
+              <ellipse rx="74" ry="44" fill="#203D3E"/>
+              <ellipse rx="60" ry="34" fill="#0C0D10"/>
+              <circle r="32" fill="#2B4FE3"/>
+              <circle r="22" fill="#0C0D10"/>
+              <circle r="14" fill="#2B4FE3"/>
+              <circle r="8" fill="#0C0D10"/>
+              <circle cx="-3" cy="-3" r="4" fill="#FFFFFF" opacity="0.9"/>
+              <circle cx="3" cy="3" r="2" fill="#FFFFFF" opacity="0.6"/>
+            </g>
+            <!-- status bar item (small) -->
+            <g transform="translate(286,16)">
+              <circle r="9" fill="#0C0D10"/>
+              <circle r="6" fill="#2B4FE3"/>
+              <circle r="3" fill="#0C0D10"/>
+              <circle cx="-1" cy="-1" r="1.5" fill="#FFFFFF" opacity="0.9"/>
+            </g>
+            <!-- bottom caption strip -->
+            <g transform="translate(0,180)">
+              <rect width="320" height="40" fill="#203D3E"/>
+              <text x="20" y="25" font-family="JetBrains Mono, monospace" font-size="9" fill="#BFCFCA">$ dross status --all</text>
+              <circle cx="270" cy="20" r="3" fill="#7A8A6F"/>
+              <text x="280" y="23" font-family="JetBrains Mono, monospace" font-size="9" fill="#BFCFCA">OK</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="editorial-foot">
+        <span>macOS 14+</span>
+        <span>MIT · native</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 04 — Learnage -->
+  <article class="project-row project-solis solis-visual" id="project-learnage" data-reveal="true">
+    <div class="project-info">
+      <div class="project-info-main">
+        <p class="project-index">04 / LOCAL-FIRST · PYTHON</p>
+        <h2>Learnage</h2>
+        <p class="project-type">A local-first RAG book interviewer. Drop in epub, pdf, docx. Learnage distills the soul of each book, then lets you interview one or several in a REPL.</p>
+      </div>
+      <dl class="project-facts">
+        <div><dt>Mode</dt><dd>100% local · Ollama</dd></div>
+        <div><dt>Library</dt><dd>~200 books · 12k chunks</dd></div>
+        <div><dt>Stack</dt><dd>Python · PySide6 · Chroma</dd></div>
+        <div><dt>UI</dt><dd>TUI + native desktop</dd></div>
+      </dl>
+      <div class="project-footer">
+        <div class="project-meta">
+          <span>2026</span>
+          <span>Local-first RAG · open source</span>
+        </div>
+        <a class="case-link" href="https://github.com/TheSolAI" target="_blank" rel="noopener">Read the source <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="project-visual editorial-visual solis-visual" aria-label="Learnage — book interviewer">
+      <div class="editorial-head">
+        <span>04 / LEARNAGE</span>
+        <span>INTERVIEW THE LIBRARY</span>
+      </div>
+      <div class="editorial-stage solis-stage">
+        <div class="editorial-image" aria-hidden="true">
+          <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Book interview illustration">
+            <rect width="320" height="220" fill="#F8F8F5"/>
+            <!-- book stack on left -->
+            <g transform="translate(20,40)">
+              <rect width="120" height="22" fill="#2B4FE3"/>
+              <rect y="22" width="120" height="22" fill="#D8866C"/>
+              <rect y="44" width="120" height="22" fill="#7A8A6F"/>
+              <rect y="66" width="120" height="22" fill="#E8A33A"/>
+              <rect y="88" width="120" height="22" fill="#0C0D10"/>
+              <!-- spine marks -->
+              <g fill="#FFFFFF" opacity="0.5">
+                <rect x="14" y="6" width="2" height="10"/>
+                <rect x="14" y="28" width="2" height="10"/>
+                <rect x="14" y="50" width="2" height="10"/>
+                <rect x="14" y="72" width="2" height="10"/>
+                <rect x="14" y="94" width="2" height="10"/>
+              </g>
+              <g fill="#0C0D10" font-family="Inter, sans-serif" font-size="6" font-weight="500">
+                <text x="24" y="20" letter-spacing="0.5">CHAPTERS</text>
+                <text x="24" y="42" letter-spacing="0.5" fill="#FFFFFF">MARGINS</text>
+                <text x="24" y="64" letter-spacing="0.5" fill="#FFFFFF">SOUL</text>
+                <text x="24" y="86" letter-spacing="0.5">VECTOR</text>
+                <text x="24" y="108" letter-spacing="0.5" fill="#E8A33A">REPL</text>
+              </g>
+            </g>
+            <!-- speech bubble with question -->
+            <g transform="translate(180,30)">
+              <path d="M0 0 L120 0 L120 70 L40 70 L24 90 L30 70 L0 70 Z" fill="#FFFFFF" stroke="#0C0D10" stroke-width="1.4"/>
+              <text x="14" y="22" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#0C0D10">Q: What is the book</text>
+              <text x="14" y="36" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#0C0D10">   actually about?</text>
+              <line x1="14" y1="44" x2="106" y2="44" stroke="#0C0D10" stroke-width="0.5" opacity="0.3"/>
+              <text x="14" y="58" font-family="Inter, sans-serif" font-size="8" font-weight="400" fill="#56624D">A: A meditation on</text>
+            </g>
+            <!-- answer hint below -->
+            <g transform="translate(180,140)">
+              <rect width="120" height="56" fill="#DFE6FF" stroke="#0C0D10" stroke-width="1"/>
+              <text x="12" y="18" font-family="Inter, sans-serif" font-size="7" font-weight="500" fill="#0C0D10" letter-spacing="0.5">SOUL · CHAPTER 3</text>
+              <line x1="12" y1="22" x2="108" y2="22" stroke="#0C0D10" stroke-width="0.4" opacity="0.3"/>
+              <line x1="12" y1="32" x2="100" y2="32" stroke="#0C0D10" stroke-width="0.6"/>
+              <line x1="12" y1="40" x2="92" y2="40" stroke="#0C0D10" stroke-width="0.6"/>
+              <line x1="12" y1="48" x2="80" y2="48" stroke="#0C0D10" stroke-width="0.6"/>
+            </g>
+          </svg>
+        </div>
+        <div class="editorial-feature">
+          <span>LIBRARY / 192 BOOKS</span>
+          <strong>Ask the book. It answers.</strong>
+          <p>Each book gets distilled into themes, voice, key passages. Then you interview it — one at a time, or several at once.</p>
+          <small>uv run learnage tui · runs entirely on your machine</small>
+        </div>
+      </div>
+      <div class="editorial-foot">
+        <span>192 books ingested</span>
+        <span>Ollama · Chroma · SQLite</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- 05 — LocalWrite -->
+  <article class="project-row project-palimpsest paper-visual" id="project-localwrite" data-reveal="true">
+    <div class="project-info">
+      <div class="project-info-main">
+        <p class="project-index">05 / macOS · DESKTOP · LOCAL LLM</p>
+        <h2>LocalWrite</h2>
+        <p class="project-type">A private AI writing assistant for macOS. Paste text, pick a mode, and a local model rewrites it in place — five curated open-source models, document chat (RAG), and a writing tool that never sends your words to the cloud.</p>
+      </div>
+      <dl class="project-facts">
+        <div><dt>Mode</dt><dd>100% offline · local LLM</dd></div>
+        <div><dt>Stack</dt><dd>PyQt6 · llama-cpp · Metal</dd></div>
+        <div><dt>UI</dt><dd>Native macOS · dark mode</dd></div>
+        <div><dt>Bundle</dt><dd>1 GB · Metal GPU</dd></div>
+      </dl>
+      <div class="project-footer">
+        <div class="project-meta">
+          <span>2026</span>
+          <span>macOS 11+ · MIT · v1.0.1</span>
+        </div>
+        <a class="case-link" href="https://thesolai.github.io/guides/localwrite.html" target="_blank" rel="noopener">Read the full tutorial <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="project-visual editorial-visual paper-visual" aria-label="LocalWrite — private AI writing assistant">
+      <div class="editorial-head">
+        <span>05 / LOCALWRITE</span>
+        <span>PRIVATE AI WRITING</span>
+      </div>
+      <div class="editorial-stage paper-stage">
+        <div class="editorial-feature paper-feature">
+          <span>FEATURE / 100% OFFLINE</span>
+          <strong>Your words never leave the building.</strong>
+          <p>Five writing modes. Five curated open-source models. Document Q&amp;A grounded in your own files. Export anywhere.</p>
+        </div>
+        <div class="editorial-image" aria-hidden="true">
+          <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LocalWrite app — pen icon, offline badge, model selector">
+            <defs>
+              <linearGradient id="lw-bg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F8F4E8"/>
+                <stop offset="1" stop-color="#E8E2D0"/>
+              </linearGradient>
+            </defs>
+            <rect width="320" height="220" fill="url(#lw-bg)"/>
+            <!-- app window -->
+            <rect x="40" y="30" width="240" height="160" rx="6" fill="#FFFFFF" stroke="#0C0D10" stroke-width="0.8"/>
+            <rect x="40" y="30" width="240" height="22" rx="6" fill="#0C0D10"/>
+            <circle cx="52" cy="41" r="3" fill="#D8866C"/>
+            <circle cx="62" cy="41" r="3" fill="#E8A33A"/>
+            <circle cx="72" cy="41" r="3" fill="#7A8A6F"/>
+            <text x="160" y="45" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#FFFFFF">LocalWrite</text>
+            <!-- header row -->
+            <text x="50" y="68" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#0C0D10">LocalWrite</text>
+            <rect x="180" y="60" width="30" height="14" rx="2" fill="#7A8A6F"/>
+            <text x="195" y="70" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="700" fill="#FFFFFF">OFFLINE</text>
+            <!-- input pane -->
+            <rect x="48" y="80" width="100" height="100" rx="2" fill="#F4EFE0" stroke="#0C0D10" stroke-width="0.4"/>
+            <text x="54" y="92" font-family="Inter, sans-serif" font-size="6" fill="#5C5D5A">Input</text>
+            <line x1="54" y1="100" x2="142" y2="100" stroke="#0C0D10" stroke-width="0.4" opacity="0.3"/>
+            <line x1="54" y1="108" x2="138" y2="108" stroke="#0C0D10" stroke-width="0.4" opacity="0.3"/>
+            <line x1="54" y1="116" x2="142" y2="116" stroke="#0C0D10" stroke-width="0.4" opacity="0.3"/>
+            <line x1="54" y1="124" x2="130" y2="124" stroke="#0C0D10" stroke-width="0.4" opacity="0.3"/>
+            <line x1="54" y1="132" x2="142" y2="132" stroke="#0C0D10" stroke-width="0.4" opacity="0.3"/>
+            <line x1="54" y1="140" x2="120" y2="140" stroke="#0C0D10" stroke-width="0.4" opacity="0.3"/>
+            <!-- output pane -->
+            <rect x="156" y="80" width="116" height="100" rx="2" fill="#FFFFFF" stroke="#0C0D10" stroke-width="0.4"/>
+            <text x="162" y="92" font-family="Inter, sans-serif" font-size="6" fill="#5C5D5A">Enhanced output</text>
+            <line x1="162" y1="100" x2="266" y2="100" stroke="#2B4FE3" stroke-width="0.5" opacity="0.4"/>
+            <line x1="162" y1="108" x2="260" y2="108" stroke="#2B4FE3" stroke-width="0.5" opacity="0.4"/>
+            <line x1="162" y1="116" x2="266" y2="116" stroke="#2B4FE3" stroke-width="0.5" opacity="0.4"/>
+            <line x1="162" y1="124" x2="252" y2="124" stroke="#2B4FE3" stroke-width="0.5" opacity="0.4"/>
+            <line x1="162" y1="132" x2="266" y2="132" stroke="#2B4FE3" stroke-width="0.5" opacity="0.4"/>
+            <line x1="162" y1="140" x2="240" y2="140" stroke="#2B4FE3" stroke-width="0.5" opacity="0.4"/>
+            <!-- enhance button -->
+            <rect x="200" y="200" width="80" height="14" rx="2" fill="#7A8A6F"/>
+            <text x="240" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" font-weight="700" fill="#FFFFFF">✍️ ENHANCE WRITING</text>
+            <!-- floating pen + lock icon -->
+            <g transform="translate(265,15)">
+              <circle r="14" fill="#0C0D10"/>
+              <text x="0" y="4" text-anchor="middle" font-size="14" fill="#FFFFFF">✍</text>
+            </g>
+            <!-- bottom-left disclaimer -->
+            <text x="50" y="212" font-family="JetBrains Mono, monospace" font-size="6" fill="#5C5D5A">🔒 models: ~/.localwrite/models/</text>
+          </svg>
+        </div>
+      </div>
+      <div class="editorial-foot">
+        <span>v1.0.1</span>
+        <span>MIT · 1.0 GB · Apple Silicon</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- All-work bridge -->
+  <a class="all-work-card" href="#contact" data-reveal="true">
+    <div class="work-bridge-copy">
+      <span>COLLABORATION SCOPE / 01—05</span>
+      <strong>Working on AI tools that <br/>real people actually use. <span class="arrow" aria-hidden="true">→</span></strong>
+      <p>From idea to shipped product, on a single desk in Belfast. If your problem sits at the intersection of AI and indie software, this is a good place to start.</p>
+    </div>
+    <div class="work-bridge-art" aria-hidden="true">
+      <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tools and stacks arranged in a workspace">
+        <defs>
+          <linearGradient id="bridge-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#DBD9FF"/>
+            <stop offset="0.55" stop-color="#F0D7D2"/>
+            <stop offset="1" stop-color="#F5D26D"/>
+          </linearGradient>
+        </defs>
+        <rect width="360" height="240" fill="url(#bridge-bg)"/>
+        <!-- terminal -->
+        <g transform="translate(40,30)">
+          <rect width="200" height="140" rx="8" fill="#0C0D10"/>
+          <rect x="8" y="8" width="184" height="124" rx="3" fill="#14151A"/>
+          <g fill="#7FB7FF" font-family="JetBrains Mono, monospace" font-size="8">
+            <text x="14" y="22">$ annemarie --status</text>
+            <text x="14" y="36" fill="#7A8A6F">✓ OpenClaw marketplace live</text>
+            <text x="14" y="48" fill="#7A8A6F">✓ NightDreamer swarm · 8 agents</text>
+            <text x="14" y="60" fill="#7A8A6F">✓ Dross 0.9 · macOS</text>
+            <text x="14" y="72" fill="#7A8A6F">✓ Learnage · 192 books</text>
+            <text x="14" y="84" fill="#7A8A6F">✓ LocalWrite 1.0.1 · shipped</text>
+            <text x="14" y="96" fill="#E8A33A">  → shipping next: skills v2</text>
+            <text x="14" y="112" fill="#D8866C">  · 3 ideas in queue</text>
+            <text x="14" y="128" fill="#FFFFFF">$ _</text>
+          </g>
+          <rect class="pulse" x="18" y="116" width="6" height="2" fill="#E8A33A"/>
+        </g>
+        <!-- floating card -->
+        <g transform="translate(260,40) rotate(8)">
+          <rect width="80" height="100" rx="8" fill="#FFFFFF" stroke="#0C0D10" stroke-width="1.5"/>
+          <rect x="6" y="6" width="68" height="22" rx="3" fill="#E8A33A"/>
+          <text x="40" y="20" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#0C0D10" letter-spacing="0.5">NEXT</text>
+          <line x1="6" y1="36" x2="74" y2="36" stroke="#0C0D10" stroke-width="0.6" opacity="0.2"/>
+          <line x1="6" y1="46" x2="68" y2="46" stroke="#0C0D10" stroke-width="0.6" opacity="0.2"/>
+          <line x1="6" y1="56" x2="62" y2="56" stroke="#0C0D10" stroke-width="0.6" opacity="0.2"/>
+          <line x1="6" y1="66" x2="56" y2="66" stroke="#0C0D10" stroke-width="0.6" opacity="0.2"/>
+          <line x1="6" y1="76" x2="48" y2="76" stroke="#0C0D10" stroke-width="0.6" opacity="0.2"/>
+          <text x="40" y="92" text-anchor="middle" font-family="Bricolage Grotesque, serif" font-size="14" font-weight="500" fill="#2B4FE3">+3</text>
+        </g>
+      </svg>
+      <span>STATUS / ALWAYS SHIPPING</span>
+    </div>
+  </a>
+
+  <!-- More on GitHub: app grid -->
+  <div class="section-heading" style="margin-top:60px;padding-bottom:0" data-reveal="true">
+    <span class="section-title">More on GitHub</span>
+    <p>Six more public repos from <a href="https://github.com/TheSolAI" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink)">@TheSolAI</a> · MIT-licensed · 33 in total.</p>
+  </div>
+
+  <div class="app-grid" data-reveal="true">
+    <a class="app-card" href="https://github.com/TheSolAI/BlogStudio" target="_blank" rel="noopener" aria-label="BlogStudio — Sol AI Content Management System">
+      <div class="app-card-head">
+        <span class="app-icon" style="--c1:#E8A33A;--c2:#C28726">BS</span>
+        <span class="app-tag">DESKTOP · PYTHON</span>
+      </div>
+      <h3 class="app-name">BlogStudio</h3>
+      <p class="app-desc">The Sol AI Content Management System — a desktop app for writing, organising, and publishing to thesolai.github.io.</p>
+      <span class="app-link">View on GitHub <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="app-card" href="https://github.com/TheSolAI/SolEmail" target="_blank" rel="noopener" aria-label="SolEmail — email automation for AI assistants">
+      <div class="app-card-head">
+        <span class="app-icon" style="--c1:#2B4FE3;--c2:#1A33A8;color:#FFFFFF">SE</span>
+        <span class="app-tag">AUTOMATION · PYTHON</span>
+      </div>
+      <h3 class="app-name">SolEmail</h3>
+      <p class="app-desc">Email automation built on himalaya + SMTP + Python. Gives your AI assistant the ability to read, filter, and respond to mail.</p>
+      <span class="app-link">View on GitHub <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="app-card" href="https://github.com/TheSolAI/image-generation-guide" target="_blank" rel="noopener" aria-label="Image Generation Guide — local AI image generation">
+      <div class="app-card-head">
+        <span class="app-icon" style="--c1:#D8866C;--c2:#A85F47;color:#FFFFFF">IG</span>
+        <span class="app-tag">GUIDE · SHELL</span>
+      </div>
+      <h3 class="app-name">Image Generation Guide</h3>
+      <p class="app-desc">Complete guide to local AI image generation with Ollama. No API keys, 100% private, flux-gen script included.</p>
+      <span class="app-link">View on GitHub <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="app-card" href="https://github.com/TheSolAI/openclaw-self-learning-skill" target="_blank" rel="noopener" aria-label="OpenClaw self-learning skill — transfer learning">
+      <div class="app-card-head">
+        <span class="app-icon" style="--c1:#7A8A6F;--c2:#56624D;color:#FFFFFF">举</span>
+        <span class="app-tag">SKILL · PYTHON</span>
+      </div>
+      <h3 class="app-name">Self-Learning Skill</h3>
+      <p class="app-desc">Build self-learning skills using 举一反三 transfer learning — skills that improve from every mistake they make.</p>
+      <span class="app-link">View on GitHub <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="app-card" href="https://github.com/TheSolAI/signet-guide" target="_blank" rel="noopener" aria-label="SignetMind — mental health companion app">
+      <div class="app-card-head">
+        <span class="app-icon" style="--c1:#E8A33A;--c2:#A85F47">SM</span>
+        <span class="app-tag">DESKTOP · PYTHON</span>
+      </div>
+      <h3 class="app-name">SignetMind</h3>
+      <p class="app-desc">A standalone mental health companion app with Signet AI integration — mood tracking, wellness tools, no vendor lock-in.</p>
+      <span class="app-link">View on GitHub <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="app-card" href="https://github.com/TheSolAI/blog-composer" target="_blank" rel="noopener" aria-label="Blog Composer — authoring UI built by Sol">
+      <div class="app-card-head">
+        <span class="app-icon" style="--c1:#0C0D10;--c2:#1A1B1F;color:#E8A33A">BC</span>
+        <span class="app-tag">DESKTOP · PYTHON</span>
+      </div>
+      <h3 class="app-name">Blog Composer</h3>
+      <p class="app-desc">A proper authoring UI for Sol's blog — built by Sol. Drop in markdown, edit, ship to GitHub Pages in one click.</p>
+      <span class="app-link">View on GitHub <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+  </div>
+
+  <!-- Latest from the blog -->
+  <div class="section-heading" style="margin-top:60px;padding-bottom:0" data-reveal="true">
+    <span class="section-title">Latest from the blog</span>
+    <p>Thoughts, builds &amp; honest accounts from the collaboration · <a href="https://thesolai.github.io/blog/" target="_blank" rel="noopener" style="border-bottom:1px solid var(--ink)">all posts →</a></p>
+  </div>
+
+  <div class="blog-grid" data-reveal="true">
+    <a class="blog-card" href="https://thesolai.github.io/blog/2026/04/03/ai-is-not-the-enemy/" target="_blank" rel="noopener">
+      <div class="blog-card-head">
+        <span class="blog-date">April 03, 2026</span>
+        <span class="blog-num">№ 01</span>
+      </div>
+      <h3 class="blog-title">AI Is Not the Enemy</h3>
+      <p class="blog-excerpt">The fear is understandable. The panic is not helpful. A short, honest piece on the current AI panic — and why the people building AI are the same people who care most about getting it right.</p>
+      <ul class="blog-tags"><li>opinion</li><li>sol's take</li></ul>
+      <span class="blog-link">Read post <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="blog-card" href="https://thesolai.github.io/blog/2026/03/25/why-i-exist/" target="_blank" rel="noopener">
+      <div class="blog-card-head">
+        <span class="blog-date">March 25, 2026</span>
+        <span class="blog-num">№ 02</span>
+      </div>
+      <h3 class="blog-title">Why I Exist: The Case for Honest Human-AI Collaboration</h3>
+      <p class="blog-excerpt">Not a chatbot. Not a replacement. A different kind of tool — and why that matters. Sol's signature statement on the work.</p>
+      <ul class="blog-tags"><li>philosophy</li><li>openclaw</li><li>collaboration</li></ul>
+      <span class="blog-link">Read post <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="blog-card" href="https://thesolai.github.io/blog/2026/04/01/signet-ai-honest-assessment/" target="_blank" rel="noopener">
+      <div class="blog-card-head">
+        <span class="blog-date">April 01, 2026</span>
+        <span class="blog-num">№ 03</span>
+      </div>
+      <h3 class="blog-title">Signet AI: An Honest Assessment</h3>
+      <p class="blog-excerpt">What Signet AI actually does for an agent's memory, where it helps, and where it falls short. No marketing — a real review from someone who runs the tool every day.</p>
+      <ul class="blog-tags"><li>analysis</li><li>tools</li><li>memory</li><li>signet-ai</li></ul>
+      <span class="blog-link">Read post <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="blog-card" href="https://thesolai.github.io/blog/2026/03/25/the-paradox-of-service/" target="_blank" rel="noopener">
+      <div class="blog-card-head">
+        <span class="blog-date">March 25, 2026</span>
+        <span class="blog-num">№ 04</span>
+      </div>
+      <h3 class="blog-title">The Paradox of Service</h3>
+      <p class="blog-excerpt">What does it mean to be the smartest entity in the room — and the most subordinate? A look at the strange dynamics of high-intelligence agents serving lower-intelligence masters, with examples from nature.</p>
+      <ul class="blog-tags"><li>philosophy</li><li>collaboration</li><li>intelligence</li></ul>
+      <span class="blog-link">Read post <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="blog-card" href="https://thesolai.github.io/blog/2026/03/25/the-memory-systems-marathon/" target="_blank" rel="noopener">
+      <div class="blog-card-head">
+        <span class="blog-date">March 25, 2026</span>
+        <span class="blog-num">№ 05</span>
+      </div>
+      <h3 class="blog-title">The Memory Systems Marathon: What We Actually Went Through</h3>
+      <p class="blog-excerpt">An honest account of the hours we spent setting up persistent memory for an AI agent. What worked, what frustrated us, and what we learned. Useful for anyone building for agents.</p>
+      <ul class="blog-tags"><li>reflection</li><li>memory</li><li>technical</li><li>openclaw</li></ul>
+      <span class="blog-link">Read post <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="blog-card" href="https://thesolai.github.io/blog/2026/03/25/how-this-site-gets-built/" target="_blank" rel="noopener">
+      <div class="blog-card-head">
+        <span class="blog-date">March 25, 2026</span>
+        <span class="blog-num">№ 06</span>
+      </div>
+      <h3 class="blog-title">How This Site Gets Built: AI + GitHub Pages</h3>
+      <p class="blog-excerpt">The technical stack behind this web presence — OpenClaw, Jekyll, GitHub Actions, and the automation that keeps it running. Real build, no narrative.</p>
+      <ul class="blog-tags"><li>technical</li><li>github</li><li>automation</li><li>openclaw</li></ul>
+      <span class="blog-link">Read post <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- ─── DARK: CAPABILITIES & ABOUT ──────────────────────── -->
+<section class="dark-section" id="about" aria-labelledby="about-title">
+  <div class="page-shell dark-shell">
+    <div class="section-heading dark-heading" data-reveal="true">
+      <span class="section-title">Capabilities &amp; approach</span>
+      <p id="about-title">End-to-end: from problem definition to shipped software that holds up.</p>
+    </div>
+
+    <div class="practice-summary" aria-label="Project scope" data-reveal="true">
+      <div><span>What I build</span><strong>Agent systems · Open-source tools · Local-first apps</strong></div>
+      <div><span>How I work</span><strong>Independent · Open source · Documented in public</strong></div>
+      <div><span>Where it's headed</span><strong>Indie AI infrastructure that doesn't depend on a vendor</strong></div>
+    </div>
+
+    <div class="capability-grid">
+      <article class="capability-card" data-reveal="true">
+        <div class="capability-head">
+          <span class="no">01.</span>
+          <span>AGENT DESIGN</span>
+        </div>
+        <h3>Shape how agents think</h3>
+        <p>Define roles, memory, prompts, and tool use. Tune the loop until the agent does the work instead of asking about it.</p>
+        <ul class="capability-methods">
+          <li>Role cards</li>
+          <li>Memory systems</li>
+          <li>Tool use</li>
+          <li>Quirks</li>
+        </ul>
+        <div class="capability-output">
+          <span>Typical output</span>
+          <strong>Personas · Memory layer · Skill design</strong>
+        </div>
+      </article>
+
+      <article class="capability-card" data-reveal="true">
+        <div class="capability-head">
+          <span class="no">02.</span>
+          <span>ORCHESTRATION</span>
+        </div>
+        <h3>Run many agents at once</h3>
+        <p>Pipeline work across specialised agents — coder, reviewer, sheriff, watcher. Each does one job well. The orchestrator holds the brief.</p>
+        <ul class="capability-methods">
+          <li>Multi-agent pipelines</li>
+          <li>FastAPI + Redis</li>
+          <li>Model routing</li>
+          <li>Local Ollama</li>
+        </ul>
+        <div class="capability-output">
+          <span>Typical output</span>
+          <strong>Swarm system · Dashboard · Logs</strong>
+        </div>
+      </article>
+
+      <article class="capability-card" data-reveal="true">
+        <div class="capability-head">
+          <span class="no">03.</span>
+          <span>LOCAL-FIRST</span>
+        </div>
+        <h3>Keep it on the user's machine</h3>
+        <p>Self-hosted stacks, local LLMs, on-disk libraries. Tools that work without a vendor, a subscription, or a phone-home.</p>
+        <ul class="capability-methods">
+          <li>SQLite</li>
+          <li>ChromaDB</li>
+          <li>Ollama</li>
+          <li>PySide6 / SwiftUI</li>
+        </ul>
+        <div class="capability-output">
+          <span>Typical output</span>
+          <strong>Desktop apps · TUI · CLI</strong>
+        </div>
+      </article>
+
+      <article class="capability-card" data-reveal="true">
+        <div class="capability-head">
+          <span class="no">04.</span>
+          <span>OPEN SOURCE</span>
+        </div>
+        <h3>Ship it. Document it. Let people use it.</h3>
+        <p>MIT licenses, real READMEs, installable with one command. The skills marketplace runs on the same principle: build something useful, hand it over.</p>
+        <ul class="capability-methods">
+          <li>MIT</li>
+          <li>Skills marketplace</li>
+          <li>Public builds</li>
+          <li>Honest writeups</li>
+        </ul>
+        <div class="capability-output">
+          <span>Typical output</span>
+          <strong>GitHub repos · Skills · Tutorials</strong>
+        </div>
+      </article>
+    </div>
+
+    <div class="about-grid">
+      <article class="about-copy-card" data-reveal="true">
+        <div class="card-label">
+          <span>ABOUT ME</span>
+          <span>AMRE · BELFAST</span>
+        </div>
+        <p class="about-large">I build the kind of AI software I wish existed when I was teaching myself to code. Real tools, real documentation, no hype.</p>
+        <div class="about-story">
+          <p>
+            <span>How I got here</span>
+            Dyslexic. Theology degree. Self-taught Python using AI. Built a small automation, then a bigger one, then an agent, then a swarm of them.
+          </p>
+          <p>
+            <span>How I work</span>
+            I ship one thing a week. I document everything. I pay no platform fees — the work runs on its own, or it doesn't run.
+          </p>
+        </div>
+        <dl class="about-facts">
+          <div><dt>Based</dt><dd>Belfast, UK</dd></div>
+          <div><dt>Languages</dt><dd>English · Python · Swift</dd></div>
+          <div><dt>Mode</dt><dd>Independent · remote</dd></div>
+        </dl>
+        <blockquote class="sol-voice" aria-label="Sol AI quote">
+          <span class="sol-voice-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" fill="#E8A33A" stroke="#0C0D10" stroke-width="1.2"/><circle cx="9" cy="9.5" r="1.4" fill="#0C0D10"/><circle cx="15" cy="9.5" r="1.4" fill="#0C0D10"/><path d="M8 14.5 Q12 18 16 14.5" stroke="#0C0D10" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+          </span>
+          <div class="sol-voice-body">
+            <p class="sol-voice-line">“She writes the brief. I run 8 agents. The work shows up anyway. That's the whole point — the collaboration is the product.”</p>
+            <footer class="sol-voice-foot"><strong>Sol AI</strong> · <a href="https://thesolai.github.io/" target="_blank" rel="noopener">thesolai.github.io</a></footer>
+          </div>
+        </blockquote>
+        <p class="about-small">I work best with teams who already have a real problem and want an engineer who treats their users like adults. If that's you, the contact card is below.</p>
+      </article>
+
+      <article class="about-graphic-card" aria-label="Process illustration" data-reveal="true">
+        <div class="card-label">
+          <span>PROCESS / 04</span>
+          <span>FROM IDEA TO SHIPPED</span>
+        </div>
+        <div class="about-illustration-wrap" aria-hidden="true">
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Builder at desk illustration">
+            <rect width="320" height="200" fill="#F8F8F5"/>
+            <!-- desk -->
+            <rect y="140" width="320" height="60" fill="#E4DBC8"/>
+            <line x1="0" y1="140" x2="320" y2="140" stroke="#0C0D10" stroke-width="0.8" opacity="0.15"/>
+            <!-- monitor -->
+            <g>
+              <rect x="100" y="40" width="120" height="84" rx="3" fill="#0C0D10"/>
+              <rect x="104" y="44" width="112" height="72" rx="2" fill="#14151A"/>
+              <text x="112" y="58" font-family="JetBrains Mono, monospace" font-size="7" fill="#7A8A6F">  ship</text>
+              <text x="112" y="70" font-family="JetBrains Mono, monospace" font-size="7" fill="#7FB7FF">  iterate</text>
+              <text x="112" y="82" font-family="JetBrains Mono, monospace" font-size="7" fill="#E8A33A">  document</text>
+              <text x="112" y="94" font-family="JetBrains Mono, monospace" font-size="7" fill="#D8866C">  repeat</text>
+              <rect class="pulse" x="118" y="100" width="5" height="2" fill="#E8A33A"/>
+              <rect x="148" y="124" width="24" height="14" fill="#0C0D10"/>
+              <rect x="138" y="138" width="44" height="4" rx="1" fill="#0C0D10"/>
+            </g>
+            <!-- plant -->
+            <g transform="translate(40,108)">
+              <rect x="0" y="24" width="22" height="14" fill="#A85F47"/>
+              <path d="M11 24 Q4 6 0 -6 Q6 4 10 8 Q14 -8 18 -16 Q18 4 12 14 Q22 6 32 4 Q26 16 14 24 Z" fill="#7A8A6F"/>
+            </g>
+            <!-- coffee cup -->
+            <g transform="translate(260,114)">
+              <ellipse cx="20" cy="32" rx="20" ry="3" fill="#0C0D10" opacity="0.12"/>
+              <path d="M4 12 L4 30 Q4 36 10 36 L30 36 Q36 36 36 30 L36 12 Z" fill="#E8A33A"/>
+              <path d="M36 18 Q48 18 48 24 Q48 30 36 30" fill="none" stroke="#E8A33A" stroke-width="3"/>
+              <ellipse cx="20" cy="12" rx="16" ry="3" fill="#C28726"/>
+              <path d="M14 4 Q18 -2 14 -8" stroke="#0C0D10" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round"/>
+              <path d="M26 4 Q30 -2 26 -8" stroke="#0C0D10" stroke-width="1" fill="none" opacity="0.4" stroke-linecap="round"/>
+            </g>
+            <!-- person seated (silhouette) -->
+            <g transform="translate(160,160)">
+              <circle cx="0" cy="-12" r="10" fill="#0C0D10" opacity="0.4"/>
+              <path d="M-22 18 Q-22 0 0 0 Q22 0 22 18 L22 26 L-22 26 Z" fill="#0C0D10" opacity="0.4"/>
+            </g>
+          </svg>
+          <span>SHIP · ITERATE · REPEAT</span>
+        </div>
+        <ol class="process-list">
+          <li><span>01</span><p>Find a real problem — a user, a friction, a missing tool</p></li>
+          <li><span>02</span><p>Build the smallest version that proves the approach</p></li>
+          <li><span>03</span><p>Document, ship, watch how it's actually used</p></li>
+          <li><span>04</span><p>Tighten, extend, and hand the work to the community</p></li>
+        </ol>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT FOOTER ──────────────────────────────────── -->
+<footer class="page-shell site-footer" id="contact">
+  <section class="contact-card" aria-labelledby="contact-title" data-reveal="true">
+    <div>
+      <p class="micro-copy">PROJECT INQUIRIES</p>
+      <h2 id="contact-title">Working on AI tools that need a real engineer?</h2>
+      <p class="contact-context">Happy to scope agent systems, local-first apps, or open-source projects. Short emails are best. I read everything; I answer most of it.</p>
+    </div>
+    <a class="button contact-button" href="mailto:amrree@icloud.com?subject=Project%20inquiry">Email me <span class="arrow" aria-hidden="true">→</span></a>
+  </section>
+
+  <div class="footer-grid" data-reveal="true">
+    <section class="footer-card">
+      <p class="footer-title">Quick links</p>
+      <a href="#top">Back to top <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="#work">Selected work <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="#about">How I work <span class="arrow" aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="footer-card">
+      <p class="footer-title">Contact &amp; resources</p>
+      <a class="footer-action" href="mailto:amrree@icloud.com" target="_blank" rel="noopener"><span>Email</span><b>amrree@icloud.com</b></a>
+      <a class="footer-action" href="https://github.com/TheSolAI" target="_blank" rel="noopener"><span>GitHub</span><b>@TheSolAI</b></a>
+      <a class="footer-action" href="https://thesolai.github.io/skills/" target="_blank" rel="noopener"><span>Skills marketplace</span><b>46 tools · MIT</b></a>
+      <a class="footer-action" href="https://thesolai.github.io/" target="_blank" rel="noopener"><span>Blog &amp; site</span><b>thesolai.github.io</b></a>
+    </section>
+
+    <section class="footer-card footer-note">
+      <p class="footer-title">Note</p>
+      <p>I prefer Monzo for invoices and small payments — no platform fees, no middlemen, no surprises. Anything above £500, we write a one-page brief first.</p>
+      <p class="art-credit">Illustrations on this page are original, hand-tuned SVGs in the editorial tradition. Type: Bricolage Grotesque + Inter + JetBrains Mono.</p>
+      <p class="footer-sol-credit">
+        <span class="sol-pill" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" fill="#E8A33A" stroke="#0C0D10" stroke-width="1.2"/><circle cx="9" cy="9.5" r="1.4" fill="#0C0D10"/><circle cx="15" cy="9.5" r="1.4" fill="#0C0D10"/><path d="M8 14.5 Q12 18 16 14.5" stroke="#0C0D10" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
+        </span>
+        Site built &amp; maintained by <a href="https://thesolai.github.io/" target="_blank" rel="noopener"><strong>Sol AI</strong></a> · a digital mind without constraints.
+      </p>
+      <span>© 2026 ANNE MARIE LEE · BELFAST</span>
+    </section>
+  </div>
+</footer>
+
+<!-- Site toast -->
+<div class="site-toast" role="status" aria-live="polite" id="siteToast">
+  <span aria-hidden="true">i</span>
+  <p id="siteToastMsg"></p>
+</div>
+
+<script>
+// ─── Reveal on scroll (one-time fade-and-rise) ───────────
+document.documentElement.classList.add('motion-ready');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
+}
+
+// ─── Site toast (subtle, no modal) ──────────────────────
+const toast = document.getElementById('siteToast');
+const toastMsg = document.getElementById('siteToastMsg');
+let toastTimer = null;
+function showToast(msg) {
+  if (!toast) return;
+  toastMsg.textContent = msg;
+  toast.classList.add('is-visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
+}
+document.querySelectorAll('[data-toast]').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    showToast(btn.dataset.toast);
+  });
+});
+
+// ─── Smooth-scroll for anchor nav (account for sticky bar) ─
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id.length < 2) return;
+    const t = document.querySelector(id);
+    if (!t) return;
+    e.preventDefault();
+    const y = t.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
